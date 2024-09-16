@@ -1,0 +1,40 @@
+create database mascotas;
+use mascotas;
+
+create table Mascotas(
+idMascotas int(11) primary key,
+nombreMascotas varchar(15) not null, 
+generoMascota varchar(15), 
+razaMascota varchar(15),
+catidadMascota int(10) 
+); 
+
+create table Cliente(
+cedulaCliente int(11) primary key,
+nombreCliente varchar(15) not null, 
+apellidoCliente varchar(15), 
+direccionCliente varchar(10),
+telefonoCliente int(10),
+idMascotasFK int(11) 
+);
+
+create table Vacuna(
+codigoVacuna int(11) auto_increment primary key,
+nombreVacuma varchar(15) not null,
+dosisisVacuna int(10),
+enfermedad varchar(15) not null 
+); 
+
+
+create table Producto(
+codigoProducto int(11) auto_increment primary key,
+nombreProducto varchar(15) not null,
+marcaProducto varchar(10) not null,
+precioProducto float(15), 
+cedulaClienteFK int(11)
+); 
+
+alter table Cliente
+add constraint FKClienteMascotas
+foreign key (identificacionAutorFK)
+references Autor(identificacionAutor);

@@ -1,0 +1,23 @@
+select * from Macota; 
+describe Mascota; 
+insert into Mascota values(1, 'Rustha', 'M', 'Criollo', 1); 
+insert into Mascota values (2, 'Macarena', 'F', 'Criollo', 1),(3, 'Fridom', 'M', 'Criollo', 1);
+
+select * from Macota; 
+describe Mascota; 
+describe Producto;
+insert into Producto values(1, 'Shampoo', 'pests', 10500, 53168); 
+
+select * from Macota; 
+describe Mascota; 
+describe Producto; 
+insert into Vacuna values(1, 'Gripa', 'enfermedad', 20600, 9635),(2, 'CoronaV', 'enfermedad', 30600, 5588),(3, 'Deabetes', 'enfermedad', 50900, 9632);
+
+select * from Macota; 
+describe Mascota; 
+describe Cliente;
+insert into Cliente values(1, 'Lorena', 'Paez', 1000635, 3164031032),(2, 'Caren', 'Perez', 1011239, 3147259865
+
+select * from Macota; 
+describe Mascota; 
+describe Cliente;

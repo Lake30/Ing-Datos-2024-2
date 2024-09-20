@@ -1,0 +1,34 @@
+  use mascotas;
+
+Select nombreMascota as "nombre", razaMascota as "raza" from mascota;
+
+Select nombreVacuna as "Nombre", dosisVacuna as "Dosis" from vacuna;
+
+-- poner alias --
+Select cedulaCliente as "Documento", nombreCliente as "nombre", appellidoCliente as "apellido" from cliente;
+-- ordenar por ascendente --
+Select cedulaCliente as "Documento", nombreCliente as "nombre", appellidoCliente as "apellido" from cliente order by nombreCliente asc;
+-- ordenar por descendente --
+Select nombreProducto as "Nombre", marca, precio from producto order by precio desc;
+-- usar un where o una condición para la busqueda --
+Select nombreProducto from producto where precio > 10500;
+
+select enfermedadFK from detallevacuna where codigoVacunaFK = 2 and idMascotaFK > 0;
+
+select nombrevacuna from vacuna where dosisVacuna = 1 and codigoVacuna = "1";
+select * from vacuna;
+
+select nombreProducto from producto where cantidad = 1 or nombreProducto = "galletas"; 
+
+select nombreMascota, generoMascota from mascota where cantidadMascota = 1 and generoMascota != "M";
+select * from mascota;
+
+select * from producto;
+
+select * from detallevacuna;
+
+-- select campo1, campo2 From nomre_tabla where campo1 Between "2017" and "2019"; --
+
+Select nombreproducto from producto where marca like "%ur%"; -- Inicia con M= "%M"    Termina con a = %a    Contiene una a = "%a%"
+
+-- tarea: hacer dos busquedas con las like y notlike en las tablas -- 

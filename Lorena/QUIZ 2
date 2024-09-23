@@ -1,0 +1,70 @@
+ -- PRIMER PUNTO --
+
+create database TiendaOnline ;
+use TiendaOnline;
+
+-- SEGUNDO PUNTO -- 
+
+create table Producto(
+codigobarrasProducto varchar(11) auto_increment primary key,
+idProducto int(11),
+marcaProducto varchar(10) not null,
+precioProducto float(15), 
+cedulaClienteFK int(11)
+); 
+
+create table Usuario(
+idUsuario int(11) auto_increment primary key,
+nombreUsuario varchar(15) not null, 
+telefonoUsuario int(12),
+cargoUsuario varchar(15)
+);
+
+create table Cliente(
+idCliente int(11) auto_increment primary key,
+cedulaCliente int(11) not null,
+nombreCliente varchar(15) not null, 
+apellidoCliente varchar(15), 
+direccionCliente varchar(10),
+telefonoCliente int(10),
+idproductoFK int(11) 
+);
+
+create table Venta(
+idVenta int(11) auto_increment primary key,
+codigobarraVenta varchar(11),
+fechaVenta date,
+idClienteFK varchar(15)
+);
+
+create table venta_cliente(
+codigobarraVentaFK int(11),
+idClienteFK int(11)
+);
+
+-- CUARTO PUNTO RELACIONES --
+
+alter table Venta
+add constraint FKUsuarioVenta
+foreign key id(UsuarioFK) 
+references Usuario (idUsuario);
+
+alter table Producto
+add constraint FKClienteProducto
+foreign key (cedulaClienteFK)
+references Cliente(cedulaCliente);
+
+alter table venta_cliente
+add constraint FK
+foreign key 
+references 
+
+
+
+
+
+-- QUINTO PUNTO --
+
+select * from TiendaOnline;
+describe TiendaOnline;
+insert into Producto values(77777,1,'Samsung', 700200,10235689,1); 

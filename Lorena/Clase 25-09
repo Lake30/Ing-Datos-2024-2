@@ -1,0 +1,19 @@
+-- Consultas multitablas --
+-- Iner Join muestra registros de otra tabla--
+
+-- select  campo from iner join --  
+select * from Orden inner join Cliente on OrdenidClienteFK=Cliente.idCliente 
+
+select Orden.*,Cliente.nombreCliente from Orden inner join Cliente  
+
+
+-- consultar el cliente de la mayor venta echa --
+-- consultar usuario y cliente de una venta especifica -- 
+-- consultar los productos que compro un cliente en especifico -- 
+-- consultar todos los clientes que han echo ventas -- 
+
+select Çliente.nombreCliente,orden.idClienteFK,detalle_Orden  .total 
+from orden
+inner join Cliente on cliente.idcliente=orden.idClienteFK 
+inner join detalle_Orden on orden.idOrden=Producto_Orden.idordenFK 
+where total=max(total);  

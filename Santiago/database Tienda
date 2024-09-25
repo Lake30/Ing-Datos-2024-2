@@ -1,0 +1,110 @@
+create database tienda2;
+use tienda2;
+
+create table Usuario(
+FKidUsuario  int primary key
+);
+
+create table Producto(
+FKidProducto int,
+precio varchar(50),
+FKcodigoBarras int auto_increment primary key
+);
+
+create table Cliente(
+FKidCliente int auto_increment primary key
+);
+
+create table Venta(
+idUsuarioFK int,
+idClienteFK int,
+idVenta int,
+FKNOrden int auto_increment primary key
+);
+
+create table VentaProducto(
+codigoBarrasFK int,
+NOrdenFK int,
+Cantidad int,
+Total int
+);
+
+alter table VentaProducto
+add constraint FKcodigoBarras
+foreign key (codigoBarrasFK)
+references Producto(FKcodigoBarras);
+
+alter table VentaProducto
+add constraint FKNOrden
+foreign key (NOrdenFK)
+references Venta(FKNOrden);
+
+alter table Venta
+add constraint FKidUsuario
+foreign key (idUsuarioFK)
+references Usuario(FKidUsuario);
+
+alter table Venta
+add constraint FKidCliente
+foreign key (idClienteFK)
+references Cliente(FKidCliente);
+
+ALTER TABLE VentaProducto
+ADD precio varchar(50);
+
+ALTER TABLE VentaProducto
+rename COLUMN precio to precioFK;
+describe VentaProducto;
+
+ALTER TABLE producto
+modify precio varchar(50) primary key;
+
+alter table VentaProducto
+add constraint precio
+foreign key (precio)
+references producto(precio);
+
+
+-- una orden puede tener muchos productos, un producto puede ser comprado muchas veces, un cliente puede comprar muchas veces, --
+
+insert into Usuario values(1);
+insert into Usuario values(0);
+
+insert into Producto values(1, 5000, 0);
+insert into Producto values(2, 2000, 0);
+
+select * from Producto;
+
+insert into Cliente values(0);
+
+select * from Cliente;
+
+insert into Venta values(0, 1, 0, 0);
+
+select * from Venta;
+
+describe venta;
+
+describe VentaProducto;
+
+select * from VentaProducto;
+select * from Usuario;
+select * from Cliente;
+select * from Venta;
+select * from producto;
+
+describe VentaProducto;
+
+insert into ventaProducto values (1, 0, 3, codigoBarrasFK*Cantidad);
+
+select idCliente from Cliente where ;
+
+-- faltan agregar los select, la compra más pequeña, el total de las compras realizadas -- 
+-- 1. Consultar el cliente con la mayor venta 2. Consultar usuario y cliente de una venta especifica 
+-- 3. Consultar los productos que compro un cliente especifico  4.  Consultar todos los clientes que han hecho una orden (En ventas)
+
+select cliente.nombreCliente, orden.idClienteFK, detalleVenta.total
+from orden 
+inner join cliente on cliente.idCliente=orden.idClienteFK
+inner join detalleVenta on orden.idOrden = detalleVenta.idOrdenFk
+where total=max(total);

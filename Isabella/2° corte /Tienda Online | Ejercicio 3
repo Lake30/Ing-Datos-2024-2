@@ -1,0 +1,126 @@
+-- Crear una BD | TiendaOnline --
+create database Tienda_Online;
+
+-- Habilitar la BD --
+use Tienda_Online;
+
+-- Crear tablas: producto (ID autoincrement, codigo de barras); usuario, clientes (auto_increment), ventas/ordenes (ID auto_increment, # orden) --
+create Table Producto(
+codigoBarras int(15) not null,
+idProducto int auto_increment primary key not null,
+nombreProducto varchar(15) not null,
+precio float not null
+);
+
+create Table Usuario(
+idUsuario int primary key not null,
+nombreUsuario varchar(15) not null,
+rolUsuario varchar(15) not null
+);
+
+create Table Cliente(
+idCliente int auto_increment primary key not null,
+mesNacimiento varchar(15) not null,
+nombreCliente varchar(15) not null
+);
+
+create table Orden(
+numeroOrden int(15) not null,
+idOrden int primary key auto_increment not null,
+idClienteFK int not null,
+idUsuarioFK int not null,
+fecha date not null
+);
+
+create table Producto_Orden(
+idProductoFK int,
+idOrdenfk int,
+cantidad int(15),
+total double
+);
+
+-- Realizar relaciones: un cliente puede realizar muchas órdenes, un usuario puede generar muchas ordenes, un cliente puede comprar muchos productos, una orden puede contener muchos productos, un producto puede ser comprado muchas veces --
+alter table Orden
+add constraint FKClienteOrden
+foreign key (idClienteFK)
+references Cliente(idCliente);
+
+alter table Orden
+add constraint FKUsuarioOrden
+foreign key (idUsuarioFK)
+references Usuario(idUsuario);
+
+alter table Producto_Orden
+add constraint FKProductoPO
+foreign key (idProductoFK)
+references Producto(idProducto);
+
+alter table Producto_Orden
+add constraint FKOrdenPO
+foreign key (idOrdenfk)
+references Orden(idOrden);
+
+-- Visualizar estructura de las tablas --
+describe Producto;
+describe Usuario;
+describe Cliente;
+describe Orden;
+describe Producto_Orden;
+
+-- Hacer mínimo 4 inserciones por tabla --
+insert into Producto values(111,1,'pintura',4000),(222,2,'pinceles',12000),(333,3,'acuarela',20000),(444,4,'mezclador',15000);
+insert into Usuario values(123,'Isabella','Empleado'),(456,'Santiago','Administrador'),(789,'Emily','Contador'),(101,'Natalia','Empleado');
+insert into Cliente values(121,'Enero','Andres'),(131,'Junio','Tomas'),(141,'Agosto','Andrea'),(151,'Enero','Marcela');
+insert into Orden values(101,1,121,123,'2024-12-02'),(202,2,131,456,'2024-12-02'),(303,3,141,789,'2024-12-02'),(404,4,151,101,'2024-12-02');
+insert into Producto_Orden values(1,1,1,4000),(2,2,2,24000),(3,3,2,40000),(4,4,1,15000);
+
+-- Verificar informacion registrada --
+select * from Producto;
+select * from Usuario;
+select * from Cliente;
+select * from Orden;
+select * from Producto_Orden;
+
+-- Realizar consultas: consulta general de todos los productos, ordenar productos por precio (menor a mayor), consultar los clientes que nacen en enero, consultar los usuarios con rol empleado, consultar las órdenes generadas entre marzo y junio, consultar productos que contengan la letra r, consultar las ventas que tengan productos con precios de 15000 o 30000 --
+select * from Producto;
+select nombreProducto from Producto order by precio asc;
+select nombreCliente from Cliente where mesNacimiento = 'Enero';
+select nombreUsuario from Usuario where rolUsuario = 'Empleado';
+select numeroOrden from Orden where fecha between '2024-01-03' and '2024-30-06';
+select codigoBarras from Producto where nombreProducto like '%r%'; 
+select idOrdenfk from Producto_Orden where total=15000 or total=30000;
+
+-- Calcular el promedio de ventas, la suma total de ventas, cantidad de clientes, venta más económica hecha --
+select avg(total) from Producto_orden;
+select sum(total) from Producto_orden;
+select count(idCliente) from Cliente;
+select min(total) from Producto_Orden;
+
+-- Consultas multitabla --
+select * from Orden inner join Cliente on Orden.idClienteFK;
+
+-- Consultar el cliente con la maxima venta realizada --
+select Cliente.nombreCliente, Orden.idClienteFK, Producto_orden.total, max(total)
+from Orden
+join Cliente on Cliente.idCliente = Orden.idClienteFK
+join Producto_Orden on Orden.idOrden = Producto_Orden.idOrdenFK;
+
+-- Consultar usuario y cliente de una venta especifica --
+select Cliente.nombreCliente, Orden.idClienteFK, Usuario.nombreUsuario
+from Orden
+join Cliente on Cliente.idCliente = Orden.idClienteFK
+join Usuario on Usuario.idUsuario = Orden.idUsuarioFK;
+
+-- Modificar datos --
+
+update Cliente 
+set mesNacimiento = 'Noviembre'
+where idCliente = 161;
+
+update Orden
+set numeroOrden = 20240927
+where idClienteFK = 161;
+
+-- Eliminar registros --
+
+delete from Orden where numeroOrden = 20240927;

@@ -1,0 +1,173 @@
+Corregir la base de datos de la tienda y hacer bien el modelo entidad relación. guiarse del modelo de isabella 
+
+create database tienda3;
+use tienda3;
+
+create table Usuario(
+FKidUsuario int auto_increment key,
+nombreUsuario varchar(50)
+);
+
+create table Producto(
+FKidProducto int,
+nombreProducto varchar(50),
+marcaProducto varchar(50),
+DescripcionProducto varchar(50),
+FKprecioProducto int,
+FKcodigoBarras int auto_increment primary key
+);
+
+describe producto;
+
+create table Cliente(
+FKidCliente int auto_increment primary key,
+nombreCliente varchar(50),
+cedulaCliente varchar(50)
+);
+
+create table Venta(
+FKidVenta int,
+FKNOrden int auto_increment primary key,
+fechaVenta date,
+FKtotal int,
+FKCantidadComprada int,
+idClienteFK int,
+idUsuarioFK int
+);
+
+alter table Venta
+add constraint FKcodigoBarras
+foreign key (codigoBarrasFK)
+references Producto(FKcodigoBarras);
+alter table Venta
+add constraint FKprecioProducto
+foreign key (precioProductoFK)
+references Producto(FKprecioProducto);
+alter table Venta
+add constraint FKidCliente
+foreign key (idClienteFK)
+references Cliente(FKidCliente);
+alter table Venta
+add constraint FKidUsuario
+foreign key (idUsuarioFK)
+references Usuario(FKidUsuario);
+
+describe venta;
+
+create table VentaProducto(
+idVentaProducto int auto_increment primary key,
+idVentaFK int,
+codigoBarrasFK int,
+idClienteFK int,
+NOrdenFK int,
+cantidadCompradaFK int,
+precioProductoFK int,
+total int
+);
+
+alter table VentaProducto
+add constraint FKidVenta
+foreign key (idVentaFK)
+references Producto(FKidVenta);
+
+alter table VentaProducto
+add constraint FKcodigoBarras
+foreign key (codigoBarrasFK)
+references Producto(FKcodigoBarras);
+
+alter table VentaProducto
+add constraint FKidCliente
+foreign key (idClienteFK)
+references Cliente(FKidCliente);
+
+alter table VentaProducto
+add constraint FKNOrden
+foreign key (NOrdenFK)
+references Venta(FKNOrden);
+
+alter table VentaProducto
+add constraint FKcantidadComprada
+foreign key (cantidadCompradaFK)
+references Venta(FKcantidadComprada);
+
+alter table VentaProducto
+add constraint FKprecioProducto
+foreign key (precioProductoFK)
+references Venta(FKprecioProducto);
+
+-- idVentaFK codigoBarrasFK idClienteFK NOrdenFK cantidadCompradaFK precioProductoFK idUsuarioFK
+
+
+alter table VentaProducto
+add constraint FKcodigoBarras
+foreign key (codigoBarrasFK)
+references Producto(FKcodigoBarras);
+
+ALTER TABLE VentaProducto
+ADD precio varchar(50);
+
+ALTER TABLE VentaProducto
+rename COLUMN precio to precioFK;
+describe VentaProducto;
+
+ALTER TABLE producto
+modify precio varchar(50) primary key;
+
+alter table VentaProducto
+add constraint precio
+foreign key (precio)
+references producto(precio);
+
+
+-- una orden puede tener muchos productos, un producto puede ser comprado muchas veces, un cliente puede comprar muchas veces, --
+
+insert into Usuario values(1);
+insert into Usuario values(0);
+
+insert into Producto values(1, 5000, 0);
+insert into Producto values(2, 2000, 0);
+
+select * from Producto;
+
+insert into Cliente values(0);
+
+select * from Cliente;
+
+insert into Venta values(0, 1, 0, 0);
+
+select * from Venta;
+
+describe venta;
+
+describe VentaProducto;
+
+select * from VentaProducto;
+select * from Usuario;
+select * from Cliente;
+select * from Venta;
+select * from producto;
+
+describe VentaProducto;
+
+insert into ventaProducto values (1, 0, 3, codigoBarrasFK*Cantidad);
+
+-- agregar a la profesora como usuario, agregar un producto que sea ropa para bebes, y hacer que la profesora compre la ropa para bebe --
+-- insertarme a mi mismo en la base de datos --
+
+select idCliente from Cliente where;
+
+-- faltan agregar los select, la compra más pequeña, el total de las compras realizadas -- 
+-- 1. Consultar el cliente con la mayor venta 2. Consultar usuario y cliente de una venta especifica 
+-- 3. Consultar los productos que compro un cliente especifico  4.  Consultar todos los clientes que han hecho una orden (En ventas)
+
+select cliente.nombreCliente, orden.idClienteFK, detalleVenta.total
+from orden 
+inner join cliente on cliente.idCliente=orden.idClienteFK
+inner join detalleVenta on orden.idOrden = detalleVenta.idOrdenFk
+where total=max(total);
+
+describe venta;
+
+describe ventaProducto;
+
+insert into venta values(1, 0, 0, "23/08/22", 200000, 1, 0, 0) 

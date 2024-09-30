@@ -1,0 +1,129 @@
+create database tienda6;
+use tienda6;
+
+create table Usuario(
+FKidUsuario int auto_increment primary key,
+DocumentoUsuario varchar(10),
+NombreUsuario varchar (30),
+EdadUsuario varchar(3),
+TelefonoUsuario varchar(10),
+DireccionUsuario varchar(20)
+);
+
+create table Cliente(
+FKidCliente int auto_increment primary key,
+DocumentoCliente varchar(10),
+NombreCliente varchar (30),
+EdadCliente varchar(3),
+TelefonoCliente varchar(10),
+DireccionCliente varchar(20)
+);
+
+create table Producto(
+FKcodigobarrasProducto int auto_increment primary key,
+NombreProducto varchar(20),
+marcaProducto varchar(20),
+DescripcionProducto varchar(20),
+FKPrecioProducto int
+);
+
+
+
+create table Venta(
+FKNumeroOrden int auto_increment primary key,
+FechaVenta date,
+idUsuarioFK int,
+idClienteFK int
+);
+
+create table VentaProducto(
+codigoBarrasFK int,
+NumeroOrdenFK int,
+Cantidad int,
+PrecioProductoFK int,
+Total int
+);
+
+describe usuario;
+describe cliente;
+describe producto;
+describe venta;
+describe ventaProducto;
+
+alter table Venta
+add constraint FKidUsuario
+foreign key (idUsuarioFK)
+references Usuario(FKidUsuario);
+
+alter table Venta
+add constraint FKidCliente
+foreign key (idClienteFK)
+references Cliente(FKidCliente);
+
+alter table VentaProducto
+add constraint FKcodigoBarrasProducto
+foreign key (codigoBarrasFK)
+references Producto(FKcodigoBarrasProducto);
+
+alter table VentaProducto
+add constraint FKNumeroOrden
+foreign key (NumeroOrdenFK)
+references Venta(FKNumeroOrden);
+
+
+alter table VentaProducto
+add constraint FKPrecioProducto
+foreign key (PrecioProductoFK)
+references Producto(FKPrecioProducto);
+
+describe producto;
+describe ventaProducto;
+
+
+
+
+-- una orden puede tener muchos productos, un producto puede ser comprado muchas veces, un cliente puede comprar muchas veces, --
+
+insert into Usuario values(1);
+insert into Usuario values(0);
+
+insert into Producto values(1, 5000, 0);
+insert into Producto values(2, 2000, 0);
+
+select * from Producto;
+
+insert into Cliente values(0);
+
+select * from Cliente;
+
+insert into Venta values(0, 1, 0, 0);
+
+select * from Venta;
+
+describe venta;
+
+describe VentaProducto;
+
+select * from VentaProducto;
+select * from Usuario;
+select * from Cliente;
+select * from Venta;
+select * from producto;
+
+describe VentaProducto;
+
+insert into ventaProducto values (1, 0, 3, codigoBarrasFK*Cantidad);
+
+-- faltan agregar los select, la compra más pequeña, el total de las compras realizadas -- 
+-- 1. Consultar el cliente con la mayor venta 2. Consultar usuario y cliente de una venta especifica 
+-- 3. Consultar los productos que compro un cliente especifico  4.  Consultar todos los clientes que han hecho una orden (En ventas)
+
+select avg(total) from VentaProducto;
+select sum(total) from VentaProducto;
+select count(idCliente) from Cliente;
+select min(total) from VentaProducto;
+
+select Cliente.nombreCliente, Venta.idClienteFK, VentaProducto.total, max(total)
+from Orden
+join Cliente on Cliente.idCliente = Venta.idClienteFK
+join VentaProducto on Venta.idVenta = VentaProducto.NumeroOrdenFK;

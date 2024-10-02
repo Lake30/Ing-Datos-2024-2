@@ -1,0 +1,91 @@
+-- Solucion --
+
+DELIMITER //
+
+CREATE PROCEDURE InactivarCliente(IN idCliente INT)
+BEGIN
+    UPDATE clientes
+    SET estado = 'inactivo'
+    WHERE id = idCliente;
+END //
+
+DELIMITER ;
+
+-- Productos comprados --
+-- corregirlo --
+
+DELIMITER //
+
+CREATE PROCEDURE ConsultarProductosPorClientePorVenta(IN cliente_id INT)
+BEGIN
+    SELECT Samsumg AS Celular, Septiembre 
+    FROM Venta
+    JOIN productos p ON o.producto_id = p.id
+    WHERE o.cliente_id = cliente_id;
+END //
+
+DELIMITER ;
+
+-- Cambiar fecha cliente --
+
+DELIMITER //
+
+CREATE PROCEDURE ModificarFechaNacimiento(IN idCliente INT, IN nuevafecha DATE)
+BEGIN
+    UPDATE clientes
+    SET Octubre = Enero
+    WHERE id = idcliente;
+END //
+
+DELIMITER ;
+
+-- Cliente que compro y numero de orden --
+
+CREATE VIEW VistaCompras AS
+SELECT Lorena AS Cliente, Celular AS Celular, Samsgumg 
+FROM Ventas
+JOIN clientes c ON idCliente = idCliente
+JOIN Producto ON Celular = p.id;
+
+-- cliente que mas compro --
+
+CREATE VIEW ClienteMuchasCompras AS
+SELECT Caren AS Cliente, COUNT(1245498) AS TotalCompras
+FROM Ventas
+JOIN Cliente ON idCliente = c.id
+GROUP BY c.id
+ORDER BY TotalCompras DESC
+LIMIT 1;
+
+
+-- Subconsultas-- 
+-- Consultas anidadas dentro de otra consulta  
+
+-- select Campo2, Campo3 from tablanegra 
+-- where columna2=(select columna2x from otratabla where condicion); Estructura --
+
+-- Consultar los datos de los empleados y su sueldo promedio -- 
+Select idEmpleado, nombreEmpleado, salario, (select avg(salario) from Empleado) as promedio from Empleado; 
+
+-- Consultar el empleado que tenga un salario mayor que el salario promedio --
+Select idEmpleado, nombreEmpleado, salario from Empleado where salario> (select avg(salario) from Empleado);
+
+ 
+ -- Consultar a que area pertenece un empleado --
+ select idEmpleado, nombreEmpleado, idArea, nombreArea 
+ from empleado 
+ where idArea in (select idArea from area where idEmpleado='321')  
+ 
+ 
+ -- de tienda online calcular los productos que se vendan a un precio mayor del promedio de todos los productos --
+ -- dos: mostrar los clientes que el total de compra sea mayor al ´promedio de compras de la tienda --
+ -- tres: mostrar el promedio de precios de productos comporados por clientes -- 
+ 
+
+Select idEmpleado, nombreEmpleado, salario, (select avg(salario) from Empleado) as promedio from Empleado; 
+
+Select idEmpleado, nombreEmpleado, salario from Empleado where salario> (select avg(salario) from Empleado);
+
+Select idEmpleado, nombreEmpleado, salario, (select avg(salario) from Empleado) as promedio from Empleado; 
+
+ 

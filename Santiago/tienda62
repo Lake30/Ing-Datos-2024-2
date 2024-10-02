@@ -1,0 +1,244 @@
+create database tienda6;
+use tienda6;
+
+create table Usuario(
+FKidUsuario int auto_increment primary key,
+DocumentoUsuario varchar(10),
+NombreUsuario varchar (30),
+EdadUsuario varchar(3),
+TelefonoUsuario varchar(10),
+DireccionUsuario varchar(20)
+);
+
+create table Cliente(
+FKidCliente int auto_increment primary key,
+DocumentoCliente varchar(10),
+NombreCliente varchar (30),
+EdadCliente varchar(3),
+TelefonoCliente varchar(10),
+DireccionCliente varchar(20)
+);
+
+create table Producto(
+FKcodigobarrasProducto int auto_increment primary key,
+NombreProducto varchar(20),
+marcaProducto varchar(20),
+DescripcionProducto varchar(20),
+FKPrecioProducto int not null
+);
+
+
+create table Venta(
+FKNumeroOrden int auto_increment primary key,
+FechaVenta date,
+idUsuarioFK int,
+idClienteFK int,
+Total int
+);
+
+create table VentaProducto(
+codigoBarrasProductoFK int,
+NumeroOrdenFK int,
+Cantidad int,
+PrecioProductoFK int,
+Subtotal int
+);
+
+
+
+alter table VentaProducto change column PrecioProductoFK PrecioProductoFK int not null;
+
+alter table Producto add constraint PrecioProductoFK unique (FKPrecioProducto);
+
+describe usuario;
+describe cliente;
+describe producto;
+describe venta;
+describe ventaProducto;
+
+alter table Venta
+add constraint FKidUsuario
+foreign key (idUsuarioFK)
+references Usuario(FKidUsuario);
+
+alter table Venta
+add constraint FKidCliente
+foreign key (idClienteFK)
+references Cliente(FKidCliente);
+
+alter table VentaProducto
+add constraint FKcodigoBarrasProducto
+foreign key (codigoBarrasProductoFK)
+references Producto(FKcodigoBarrasProducto);
+
+
+alter table VentaProducto
+add constraint FKPrecioProducto
+foreign key (PrecioProductoFK)
+references Producto(FKPrecioProducto);
+
+alter table VentaProducto
+add constraint FKNumeroOrden
+foreign key (NumeroOrdenFK)
+references Venta(FKNumeroOrden);
+
+describe producto;
+describe ventaProducto;
+
+
+
+
+-- una orden puede tener muchos productos, un producto puede ser comprado muchas veces, un cliente puede comprar muchas veces, --
+
+insert into Usuario values(1);
+insert into Usuario values(0);
+
+insert into Producto values(1, 5000, 0);
+insert into Producto values(2, 2000, 0);
+
+select * from Producto;
+
+insert into Cliente values(0);
+
+select * from Cliente;
+
+insert into Venta values(0, 1, 0, 0);
+
+select * from Venta;
+
+describe venta;
+
+describe VentaProducto;
+
+select * from VentaProducto;
+select * from Usuario;
+select * from Cliente;
+select * from Venta;
+select * from producto;
+
+describe VentaProducto;
+
+insert into ventaProducto values (1, 0, 3, codigoBarrasFK*Cantidad);
+
+-- faltan agregar los select, la compra más pequeña, el total de las compras realizadas -- 
+-- 1. Consultar el cliente con la mayor venta 2. Consultar usuario y cliente de una venta especifica 
+-- 3. Consultar los productos que compro un cliente especifico  4.  Consultar todos los clientes que han hecho una orden (En ventas)
+
+select avg(total) from VentaProducto;
+select sum(total) from VentaProducto;
+select count(idCliente) from Cliente;
+select min(total) from VentaProducto;
+
+select Cliente.nombreCliente, Venta.idClienteFK, VentaProducto.total, max(total)
+from Orden
+join Cliente on Cliente.idCliente = Venta.idClienteFK
+join VentaProducto on Venta.idVenta = VentaProducto.NumeroOrdenFK;
+
+select * from Producto;
+select nombreProducto from Producto order by precio asc;
+select nombreCliente from Cliente where DireccionCliente = 'Calle 127';
+
+describe cliente;
+insert into cliente values(0, 1025322998, "Santiago Torrado", "18", "3193885828", "Calle 127");
+insert into cliente values(0, 1000366598, "Isabella Posada", "21", "3104295086", "Colina Campestre");
+insert into cliente values(0, 1045896633, "Tatiana cabrera", "38", "3105689578", "Calle 80");
+select * from cliente;
+describe usuario;
+insert into usuario values(0, 1234567898, "Juan Manuel Zambrano2", "18", "3102452256", "Drive algo");
+
+select * from cliente;
+select * from usuario;
+
+insert into venta values("", "2024-05-13", 1, 1);
+describe producto;
+describe VentaProducto;
+insert into ventaProducto values(1,1,10,);
+
+create view nombre_vista as
+
+
+
+/* 
+CREATE PROCEDURE nombre_procedimiento  "Tiene que empezar por un verbo"
+BEGIN 
+-- Logica sentencia que se quiera utilizar
+END//
+Delimiter;
+*/
+
+
+
+describe producto;
+delimiter //
+
+
+Create procedure insertarProducto(codigoBarrasProducto int, NombreProducto varchar(20), marcaProducto varchar (20), descripcionProducto varchar(20), precioProducto varchar(11))
+Begin
+insert into producto values (codigoBarrasProducto,NombreProducto, marcaProducto, descripcionProducto, precioProducto);
+END//
+delimiter ;
+
+call insertarProducto("", "Proteina en polvo", "NutriLabs", "proteina 40g (Scoop)", "200000" );
+select * from producto;
+
+-- tarea, crear 3 procedimientos, --
+-- inactivar cliente --
+-- consultar los productos que ha comprado un cliente --
+-- procedimiento para modificar el documento del cliente -- 
+
+-- crear 2 vistas-- 
+-- que cliente compró un producto y cual fue su numero de orden -- 
+-- muestre el cliente que más compras haya hecho --
+select * from venta inner join Cliente on venta.idClienteFK;
+use tienda6;
+
+
+describe cliente;
+Create procedure inactivarCliente(Documento varchar(20))
+Begin
+delete from Clientes where DocumentoCliente = Documento;
+END//
+delimiter ;
+
+
+SELECT ventaproducto.codigoBarrasProductoFK, producto.nombreProducto
+FROM ventaproducto join producto on ventaproducto.codigoBarrasProductoFK =  producto.nombreProducto;
+
+ 
+create view consultarCliente as select * from cliente;
+
+select * from consultarCliente;
+
+select * from ventaproducto;
+
+/* sub consultas: son consultas anidadas dentro de otra consulta
+select from campo2, campo3 from tablanegra
+where columna2=(select 2x from otratabla where condicion); 
+*/
+
+select idEmpleado, nombreEmpleado, salario, (select avg(salario) from empleado as promedio) from empleado;
+
+-- consultar el empleado que tenga un sueldo mayor que el salario promedio 
+
+select idEmpleado, nombreEmpleado, salario from empleado where salario > (select avg(salario) from empleado);
+
+-- consultar el area al que pertenece un empleado
+
+select idEmpleado, nombreEmpleado, idArea, nombreArea
+from empleado 
+where idArea in (select idArea from area where nombreEmpleado = 'Juan');
+
+-- calcular los productos que se vendan a un precio mayor del promedio de todos los productos
+select * from producto;
+
+select NombreProducto, FKPrecioProducto
+from Producto 
+where NombreProducto in (select NombreProducto from Producto where FKPrecioProducto > (select avg(FKPrecioProducto) from Producto));
+
+describe producto;
+insert into producto values(0, 'pañales', "pampers", "pañales de alta calidad", 20000),(0, "carrito de juguete", "hot wheels", "carrito rapido", 10000);
+
+
+-- mostrar los clientes que en total de compra sea mayor al promedio de compras de la tienda 
+
+-- mostrar el romedio de precios de productos comprados por clientes

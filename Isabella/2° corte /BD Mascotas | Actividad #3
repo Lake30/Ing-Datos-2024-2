@@ -133,5 +133,3 @@ select nombreProducto from Producto where precio between 10000 and 20000;
 select nombreProducto from Producto where marca like 'Pur%'; -- al poner el % después, se hace la búsqueda que empiece por lo ingresado --
 select nombreProducto from Producto where marca like '%a'; -- al poner el % antes, se hace la búsqueda que termine por lo ingresado --
 -- para consultar algo que NO empiece o termine por lo ingresado, se pone not like --
-
--- tarea: dos busquedas con like y not like por cada tabla --

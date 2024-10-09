@@ -230,8 +230,3 @@ from producto);
 select idCliente, nombreCliente from Cliente
 where total > (select avg(total)
 from Producto_orden);
-
--- Mostrar el promedio de precios de productos comprados por clientes --
-
-
-select * from Producto_orden

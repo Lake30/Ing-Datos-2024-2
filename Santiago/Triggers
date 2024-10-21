@@ -1,0 +1,54 @@
+-- Leer el archivo de la profesora, creo que los trigger llevan delimiters -- 
+
+/*Sintaxis del Triggers
+create trigger nombre_del_trigger 
+{before | after } {insert | select | update | delete}
+on nombre_tabla
+for each row
+begin
+-- Instrucciones de sql
+end;
+
+Se puede usar: Variables old y new (permiten acceder a registros)
+New: Al nuevo valor que se va a insertar o modificar.
+Old: El valor anterior
+
+Ejemplo:
+create trigger validar_precio
+after insert on producto
+for each row
+begin 
+	if new.precio < 0 then
+		signal sqltate '45000'
+		set message_text= 'el precio es incorrecto'
+	end if;
+end;
+
+create trigger registar_cambio
+after update on empleado
+for each row
+begin 
+	insert into historial_cambios values(old.id, old.nombre, new.nombre, now())
+end;
+
+create trigger actualizar_inventario
+after insert on venta
+fo each row
+begin
+	update inventario
+    set cantidad = cantidad-new.cantidad_vendida
+    where idProducto = new.IdProducto;
+end;
+
+create trigger registro_papelera
+before delete on usuarios
+for each row 
+begin
+	insert into usuariosEliminados vaules (old.id, old.nombre, old.apellido, old.telefono, now());
+end;
+*/
+
+/*Para el proyecto, agregar una tabla de eliminados paa todas las tablas. Eliminados producto, eliminados usuario, eliminados proveedor,
+para que cuando se elimine, el dato vaya a esa tabla y se pueda recuperar  */
+
+/*Deberiamos agregar el trigger validar_precio que no nos deje agregar un valor negativo  */

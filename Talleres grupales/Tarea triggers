@@ -1,0 +1,51 @@
+-- Tarea: crear los triggers que aplican para nuestro proyecto --
+
+-- Actualizar stock cada vez que se trae un producto de un proveedor --
+create trigger stock_entradas
+after insert on entradas
+for each row
+begin
+	update inventario
+    set cantidad = cantidad + new.cantidad_entrada
+    where idProducto = new.idProducto;
+end;
+
+-- Actualizar stock cada vez que un encargado de bodega registra que salió el producto de la tienda --
+create trigger stock_salidas
+after insert on salidas
+for each row
+begin
+	update inventario
+    set cantidad = cantidad - new.cantidad_entrada
+    where idProducto = new.idProducto;
+end;
+
+-- Si se elimina un dato importante, permitir que se almacene en una papelera --
+create trigger registro_papelera
+before delete on usuario
+for each row
+begin
+	insert into usuariosEliminados values (old.idUsuario, old.nombreUsuario, old.apellidoUsuario, old.cargoUsuario, old.contrasenaUsuario, old.cedulaUsuario, old.direccionUsuario, old.telefonoUsuario, old.correoUsuario, old.fechaNacimientoUsuario, old.estadoUsuario, now());
+end;
+describe usuario;
+
+-- Asegurar que el sistema no permita que se inserten precios negativos --
+create trigger validar_precio
+after insert on producto
+for each row
+begin
+	if new.precio<0 then
+		-- mostrar un codigo de error: --
+		signal sqlstate '45000' 
+		set message_text = 'el precio es incorrecto';
+	end if;
+end;
+
+-- Registrar el historial de compras realizadas a los proveedores --
+create trigger registrar_historial
+after insert on entradas
+for each row
+begin
+	insert into historial_compras (id_producto, id_proveedor, cantidad_comprada, fecha_compra)
+    values (new.id_producto, new.id_proveedor, new.cantidad_recibida, curdate());
+end;

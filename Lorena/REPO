@@ -1,0 +1,13 @@
+PS C:\Users\prestamour\Documents\MONGODB> mkdir mongo 
+
+
+    Directorio: C:\Users\prestamour\Documents\MONGODB
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        10/25/2024   8:56 AM                mongo
+
+
+PS C:\Users\prestamour\Documents\MONGODB> cd mongo
+PS C:\Users\prestamour\Documents\MONGODB\mongo> cd..

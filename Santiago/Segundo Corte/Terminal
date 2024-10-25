@@ -1,0 +1,3 @@
+npm install express mongoose
+
+npm install --save-dev nodemon

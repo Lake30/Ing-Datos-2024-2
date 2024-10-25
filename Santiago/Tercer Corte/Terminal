@@ -1,3 +1,5 @@
 npm install express mongoose
 
 npm install --save-dev nodemon
+
+// agregar a package.json || "start": "nodemon index.js" ||  debajo de test

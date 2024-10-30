@@ -1,0 +1,73 @@
+//conexión a BD
+const { error } = require('console');
+const express=require('express');
+const mongoose=require('mongoose');
+
+const app=express();
+const PORT=3000;
+
+//crear el cuerpo de las peticiones (middleware)
+app.use(express.json());
+
+// conexión BD
+mongoose.connect('mongodb://localhost:27017/BDMongo',{
+    useNewURLParser:true,
+    useUnifiedTopology:true,
+}).then(()=>console.log('Se conectó a Mongo'))
+.catch(err=>console.error('No se conectó a BD error: ',err));
+
+// iniciar el servidor
+app.listen(PORT,()=>{
+    console.log('Servidor ejecutándose sobre el puerto:',PORT);
+});
+
+//agregar las rutas para manipular user
+
+const user=require ('user'); 
+
+//registrar un usuario nuevo 
+
+app.post('/users', async(req,res)=>(
+try(
+    const user=new User(req.body);
+    await user.save();
+    res.status(201).send(user);
+cotch (error)(
+    rest.status(400).send(error)
+
+
+)
+)
+)
+
+// consultar los id 
+
+app.get('/users/id', async(req,res)=>(
+    try(
+        const user= await User.findById(req.params.id);
+        if(user)return response.status(404).sed();
+        res.status(200).send(users);
+    cotch (error)(
+        rest.status(500).send(error) 
+    
+    
+    )
+    )
+    )
+
+
+
+    //
+
+    app.get('/users/id', async(req,res)=>(
+        try(
+            const user= await User.findByIdAndUpdate(req.params.id);
+            if(user)return response.status(404).sed();
+            res.status(200).send(users);
+        cotch (error)(
+            rest.status(500).send(error) 
+        
+        
+        )
+        )
+        )

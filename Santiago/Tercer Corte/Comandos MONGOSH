@@ -1,0 +1,31 @@
+Como find es un metodo, tiene que ser escrito como find()
+
+>use BDMongo
+switched to db BDMongo
+>use rockband
+switched to db rockband
+>db
+rockband
+>db.createCollection('band')
+{ ok: 1 }
+>show dbs
+BDMongo    40.00 KiB
+admin      40.00 KiB
+config    108.00 KiB
+local      88.00 KiB
+mongo       8.00 KiB
+rockband    8.00 KiB
+>show collections
+band
+
+db.findOne(ObjectId('782312321hjsdadkakajdahkdakj'))
+//Usado para encontrar un solo elemento
+
+Titulo del album, numero de canciones, año de publicación
+
+db.band.find().pretty() // De la database band trae todos los resultados
+
+db.albums.findOneAndReplace({_id: ObjectId('6724d12f738cbb8a282807f3')}, {name:'Pa las Baby´s Y Belikeada', anio:2023,numero_canciones:30})
+
+db.albums.insertMany([{name:'Call of the wild',anio:2021,numero_canciones:11},{name:'V', anio:2014, numero_canciones:20}])
+

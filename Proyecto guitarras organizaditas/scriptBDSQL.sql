@@ -1,0 +1,843 @@
+create database GuitarrasOrtizo;
+use GuitarrasOrtizo;
+
+create table Producto(
+idProducto varchar(10) primary key not null,
+referenciaProducto varchar(100) not null,
+precioProducto float not null,
+estadoProducto bool not null,
+cantidadProducto int not null
+);
+
+create table Proveedor(
+idProveedor int primary key not null,
+nombreProveedor varchar(10) not null,
+contactoPrincipalProveedor varchar(20) not null,
+telefonoProveedor varchar(15) not null,
+correoProveedor varchar(35) not null,
+paisOrigenProveedor varchar(25) not null,
+estadoProveedor bool not null
+);
+
+create table Usuario(
+idUsuario int primary key not null auto_increment,
+nombreUsuario varchar(15) not null,
+apellidoUsuario varchar(15) not null,
+cargoUsuario varchar(20) not null,
+contrasenaUsuario varchar(20) not null,
+cedulaUsuario int not null,
+direccionUsuario varchar(20) not null,
+telefonoUsuario varchar(10) not null,
+correoUsuario varchar(35) not null,
+fechaNacimientoUsuario date not null,
+estadoUsuario bool not null
+);
+
+create table Entradas(
+idEntrada int primary key not null auto_increment,
+idProveedorFK int not null,
+fechaEntrada date not null
+);
+
+create table Salidas(
+idSalida int primary key not null auto_increment,
+idUsuarioFK int not null,
+fechaSalida date not null
+);
+
+create table DetalleEntradas(
+idProductoFK varchar(10) not null,
+idEntradaFK int not null,
+cantidadEntrada int not null
+);
+
+create table DetalleSalidas(
+idProductoFK varchar(10) not null,
+idSalidaFK int not null,
+cantidadSalida int not null
+);
+
+alter table DetalleEntradas
+add constraint FKProductoDetEntradas
+foreign key (idProductoFK)
+references Producto(idProducto);
+
+alter table DetalleEntradas
+add constraint FKEntradasDetalle
+foreign key (idEntradaFK)
+references Entradas(idEntrada);
+
+alter table Entradas
+add constraint FKEntradasProveedor
+foreign key (idProveedorFK)
+references Proveedor(idProveedor);
+
+alter table DetalleSalidas
+add constraint FKProductoDetSalidas
+foreign key (idProductoFK)
+references Producto(idProducto);
+
+alter table DetalleSalidas
+add constraint FKSalidasDetalle
+foreign key (idSalidaFK)
+references Salidas(idSalida);
+
+alter table Salidas
+add constraint FKSalidasUsuario
+foreign key (idUsuarioFK)
+references Usuario(idUsuario);
+
+DELIMITER //
+CREATE PROCEDURE RegistrarUsuario(
+nombreUsuario varchar(15), 
+apellidoUsuario varchar(15), 
+cargoUsuario varchar(20), 
+contrasenaUsuario varchar(20), 
+cedulaUsuario int(10), 
+direccionUsuario varchar(25), 
+telefonoUsuario varchar(10), 
+correoUsuario varchar(25), 
+fechaNacimientoUsuario date, 
+estadoUsuario bool
+)
+BEGIN
+INSERT INTO Usuario (nombreUsuario, apellidoUsuario, cargoUsuario, contrasenaUsuario, cedulaUsuario, direccionUsuario, telefonoUsuario, correoUsuario, fechaNacimientoUsuario, estadoUsuario) 
+VALUES (nombreUsuario, apellidoUsuario, cargoUsuario, contrasenaUsuario, cedulaUsuario, direccionUsuario, telefonoUsuario, correoUsuario, fechaNacimientoUsuario, estadoUsuario);
+END //
+DELIMITER ;
+describe usuario;
+
+DELIMITER //
+CREATE PROCEDURE ConsultarUsuarios()
+BEGIN
+select * from Usuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE EliminarUsuario(
+    IN uidUsuario INT
+)
+BEGIN
+    DELETE FROM Usuario
+    WHERE idUsuario = uidUsuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ModificarCargoUsuario(
+uidUsuario int,
+ucargoUsuario varchar(20)
+)
+BEGIN
+update Usuario
+set 
+cargoUsuario = ucargoUsuario
+where idUsuario = uidUsuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ModificarTelefonoUsuario(
+uidUsuario int,
+utelefonoUsuario varchar(10)
+)
+BEGIN
+update Usuario
+set 
+telefonoUsuario = utelefonoUsuario
+where idUsuario = uidUsuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ModificarCorreoUsuario(
+uidUsuario int,
+ucorreoUsuario varchar(35)
+)
+BEGIN
+update Usuario
+set 
+correoUsuario = ucorreoUsuario
+where idUsuario = uidUsuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ModificarEstadoUsuario(
+uidUsuario int,
+uEstadoUsuario date
+)
+BEGIN
+update Usuario
+set 
+EstadoUsuario = uEstadoUsuario
+where idUsuario = uidUsuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ModificarContrasena(
+uidUsuario int,
+uContrasenaUsuario varchar(20)
+)
+BEGIN
+update Usuario
+set 
+ContrasenaUsuario = uContrasenaUsuario
+where idUsuario = uidUsuario;
+END //
+DELIMITER ;
+
+/* hasta aqui van las modificaciones */
+
+DELIMITER //
+CREATE PROCEDURE ConsultarUsuariosActivos()
+BEGIN
+select * from Usuario where estadoUsuario = 1;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ConsultarIDporCargo(p_cargoUsuario int)
+BEGIN
+select idUsuario from Usuario
+where p_cargoUsuario=cargoUsuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ConsultarIDporCedula(p_cedulaUsuario int)
+BEGIN
+select idUsuario from Usuario
+where p_cedulaUsuario=cedulaUsuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ConsultarTelefonoPorID(p_idUsuario int)
+BEGIN
+select telefonoUsuario from Usuario
+where p_idUsuario=idUsuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ConsultarCorreoPorID(p_idUsuario INT)
+BEGIN
+    SELECT correoUsuario 
+    FROM Usuario
+    WHERE idUsuario = p_idUsuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ConsultarIDPorNombre(p_nombreUsuario VARCHAR(15))
+BEGIN
+    SELECT idUsuario 
+    FROM Usuario 
+    WHERE nombreUsuario = p_nombreUsuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ConsultarNacimientoPorNombre(p_nombreUsuario VARCHAR(15))
+BEGIN
+    SELECT fechaNacimientoUsuario 
+    FROM Usuario 
+    WHERE nombreUsuario = p_nombreUsuario;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE registrarProducto(
+    IN p_idProducto VARCHAR(10),
+    IN p_referenciaProducto VARCHAR(100),
+    IN p_precioProducto FLOAT,
+    IN p_estadoProducto BOOLEAN,
+    IN p_cantidadProducto INT
+)
+BEGIN
+    INSERT INTO Producto (idProducto, referenciaProducto, precioProducto, estadoProducto, cantidadProducto)
+    VALUES (p_idProducto, p_referenciaProducto, p_precioProducto, p_estadoProducto, p_cantidadProducto);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarProductosRegistrados()
+BEGIN
+    SELECT * FROM Producto;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE eliminarProducto(IN p_idProducto VARCHAR(10))
+BEGIN
+    DELETE FROM Producto WHERE idProducto = p_idProducto;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE modificarReferenciaProducto(
+    IN p_idProducto VARCHAR(10),
+    IN p_nuevaReferenciaProducto VARCHAR(100)
+)
+BEGIN
+    UPDATE Producto
+    SET referenciaProducto = p_nuevaReferenciaProducto
+    WHERE idProducto = p_idProducto;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE modificarPrecioProducto(
+    IN p_idProducto VARCHAR(10),
+    IN p_nuevoPrecio FLOAT
+)
+BEGIN
+    UPDATE Producto
+    SET precioProducto = p_nuevoPrecio
+    WHERE idProducto = p_idProducto;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarGuitarrasZurdas()
+BEGIN
+    SELECT * FROM Producto
+    WHERE referenciaProducto LIKE '%zurd%';
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ordenarPrecioAscendente()
+BEGIN
+    SELECT * FROM Producto
+    ORDER BY precioProducto ASC;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE modificarEstadoProducto(
+    IN p_idProducto VARCHAR(10),
+    IN p_nuevoEstado BOOLEAN
+)
+BEGIN
+    UPDATE Producto
+    SET estadoProducto = p_nuevoEstado
+    WHERE idProducto = p_idProducto;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarProductosDisponibles()
+BEGIN
+    SELECT * FROM Producto
+    WHERE estadoProducto = TRUE;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarPrecioporID(IN p_idProducto VARCHAR(10))
+BEGIN
+    SELECT precioProducto FROM Producto
+    WHERE idProducto = p_idProducto;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarCantidadporID(IN p_idProducto VARCHAR(10))
+BEGIN
+    SELECT cantidadProducto FROM Producto
+    WHERE idProducto = p_idProducto;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarIDporReferencia(IN p_referenciaProducto VARCHAR(100))
+BEGIN
+    SELECT idProducto FROM Producto
+    WHERE referenciaProducto = p_referenciaProducto;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarProductosconAccesorios()
+BEGIN
+    SELECT * FROM Producto
+    WHERE referenciaProducto LIKE '%afinador%'
+       OR referenciaProducto LIKE '%estuche%';
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE registrarProveedor(
+    IN p_nombre VARCHAR(10),
+    IN p_contacto VARCHAR(20),
+    IN p_telefono VARCHAR(15),
+    IN p_correo VARCHAR(35),
+    IN p_pais VARCHAR(25),
+    IN p_estado BOOLEAN
+)
+BEGIN
+    INSERT INTO Proveedor (nombreProveedor, contactoPrincipalProveedor, telefonoProveedor, correoProveedor, paisOrigenProveedor, estadoProveedor)
+    VALUES (p_nombre, p_contacto, p_telefono, p_correo, p_pais, p_estado);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarProveedores()
+BEGIN
+    SELECT * FROM Proveedor;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE modificarContactoPrincipal(
+    IN p_id INT,
+    IN p_contacto VARCHAR(20)
+)
+BEGIN
+    UPDATE Proveedor
+    SET contactoPrincipalProveedor = p_contacto
+    WHERE idProveedor = p_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE modificarTelefono(
+    IN p_id INT,
+    IN p_telefono VARCHAR(15)
+)
+BEGIN
+    UPDATE Proveedor
+    SET telefonoProveedor = p_telefono
+    WHERE idProveedor = p_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE eliminarProveedor(
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM Proveedor WHERE idProveedor = p_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarporPaisOrigen(
+    IN p_pais VARCHAR(25)
+)
+BEGIN
+    SELECT * FROM Proveedor WHERE paisOrigenProveedor = p_pais;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE modificarEstadoProveedor(
+    IN p_id INT,
+    IN p_estado BOOLEAN
+)
+BEGIN
+    UPDATE Proveedor
+    SET estadoProveedor = p_estado
+    WHERE idProveedor = p_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE modificarCorreoProveedor(
+    IN p_id INT,
+    IN p_correo VARCHAR(35)
+)
+BEGIN
+    UPDATE Proveedor
+    SET correoProveedor = p_correo
+    WHERE idProveedor = p_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE modificarNombreProveedor(
+    IN p_id INT,
+    IN p_nombre VARCHAR(10)
+)
+BEGIN
+    UPDATE Proveedor
+    SET nombreProveedor = p_nombre
+    WHERE idProveedor = p_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarTelefonoporIDProveedor(
+    IN p_id INT
+)
+BEGIN
+    SELECT telefonoProveedor FROM Proveedor WHERE idProveedor = p_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarCorreoporIDProveedor(
+    IN p_id INT
+)
+BEGIN
+    SELECT correoProveedor FROM Proveedor WHERE idProveedor = p_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarContactoporID(
+    IN p_id INT
+)
+BEGIN
+    SELECT contactoPrincipalProveedor FROM Proveedor WHERE idProveedor = p_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarIDporMarca(
+    IN p_nombre VARCHAR(10)
+)
+BEGIN
+    SELECT idProveedor FROM Proveedor WHERE nombreProveedor = p_nombre;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarContactoporMarca(
+    IN p_nombre VARCHAR(10)
+)
+BEGIN
+    SELECT contactoPrincipalProveedor FROM Proveedor WHERE nombreProveedor = p_nombre;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarProveedoresActivos()
+BEGIN
+    SELECT * FROM Proveedor WHERE estadoProveedor = TRUE;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarFechaEntradaPorID(
+    IN p_idEntrada INT
+)
+BEGIN
+    SELECT fechaEntrada
+    FROM Entradas
+    WHERE idEntrada = p_idEntrada;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE consultarFechaSalidaPorID(
+    IN p_idSalida INT
+)
+BEGIN
+    SELECT fechaSalida
+    FROM Salidas
+    WHERE idSalida = p_idSalida;
+END //
+DELIMITER ;
+
+create table usuarioseliminados (
+    idUsuario int not null,
+    nombreUsuario varchar(15) not null,
+    apellidoUsuario varchar(15) not null,
+    telefonoUsuario varchar(10) not null,
+    fechaEliminacion datetime not null
+);
+
+DELIMITER //
+create trigger registro_papelera_usuario
+before delete on usuario
+for each row
+begin
+    insert into usuarioseliminados (idUsuario, nombreUsuario, apellidoUsuario, telefonoUsuario, fechaEliminacion)
+    values (old.idUsuario, old.nombreUsuario, old.apellidoUsuario, old.telefonoUsuario, now());
+end;
+DELIMITER ;
+
+create table proveedoreseliminados (
+    idProveedor int not null,
+    nombreProveedor varchar(10) not null,
+    telefonoProveedor varchar(15) not null,
+    correoProveedor varchar(35) not null,
+    fechaEliminacion datetime not null
+);
+
+DELIMITER //
+create trigger registro_papelera_proveedor
+before delete on proveedor
+for each row
+begin
+    insert into proveedoreseliminados (idProveedor, nombreProveedor, telefonoProveedor, correoProveedor, fechaEliminacion)
+    values (old.idProveedor, old.nombreProveedor, old.telefonoProveedor, old.correoProveedor, now());
+end;
+DELIMITER ;
+
+create table productoseliminados (
+    idProducto varchar(10) not null,
+    referenciaProducto varchar(100) not null,
+    precioProducto float not null,
+    cantidadProducto int not null,
+    fechaEliminacion datetime not null
+);
+
+DELIMITER //
+create trigger registro_papelera_producto
+before delete on producto
+for each row
+begin
+    insert into productoseliminados (idProducto, referenciaProducto, precioProducto, cantidadProducto, fechaEliminacion)
+    values (old.idProducto, old.referenciaProducto, old.precioProducto, old.cantidadProducto, now());
+end;
+DELIMITER ;
+
+DELIMITER //
+create trigger validar_precio
+after insert on Producto
+for each row
+begin
+    if new.precioProducto < 0 then
+        signal sqlstate '45000' set message_text = 'el precio es incorrecto';
+    end if;
+end //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER actualizar_inventario_entrada
+AFTER INSERT ON DetalleEntradas
+FOR EACH ROW
+BEGIN
+    UPDATE Producto
+    SET cantidadProducto = cantidadProducto + NEW.cantidadEntrada
+    WHERE idProducto = NEW.idProductoFK;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER actualizar_inventario_salida
+AFTER INSERT ON DetalleSalidas
+FOR EACH ROW
+BEGIN
+    UPDATE Producto
+    SET cantidadProducto = cantidadProducto - NEW.cantidadSalida
+    WHERE idProducto = NEW.idProductoFK;
+END //
+DELIMITER ;
+
+describe Producto;
+insert into producto values 
+('GA0019', 'clásico SQUIER SA-150N', 604.900, 1, 10),
+('GA0804', '4/4 VC104/Natural', 337.900, 1, 10),
+('GA0370', 'clásico Classic AC100 estuche', 556.900, 1, 10),
+('GA0702', 'clásico SA-150/DREADNOUGHT', 580.000, 1, 10),
+('GA0807', '4/4 VC104K-NEGRA estuche y afinador', 422.900, 1, 10),
+('GA0808', '3/4 VC103K/NATURAL estuche y afinador', 416.900, 1, 10),
+('GA0686', 'clásico AF510M/Poro Abierto estuche', 556.900, 1, 10),
+('GA0819', 'clásico VC564', 489.900, 1, 10),
+('GA0810', '1/2 NATURAL VC102 estuche y afinador', 384.900, 1, 10),
+('GA0684', '3/4 AD MINI/Poro abierto estuche', 576.900, 1, 10),
+
+('GA0820', '4/4 VC304/NATURAL', 372.900, 1, 10),
+('GC0355', '4/4 EARTH-GRAND estuche', 934.900, 1, 10),
+('GA0812', '1/4 VC101-NATURAL estuche y afinador', 366.900, 1, 10),
+('GA0811', '1/2 VC102-NEGRA estuche y afinador', 384.900, 1, 10),
+('GA0690', 'clásico AD880/NATURAL estuche', 667.900, 1, 10),
+('GA0821', '4/4 HIBRIDA CUELLO DELGADO', 322.900, 1, 10),
+('GA0695', '3/4 EARTH MINI estuche', 745.900, 1, 10),
+('GA0020', 'clásico CN-60S NYLON', 1290.900, 1, 10),
+('GA0022', 'clásico CONCERT CD-60 estuche', 1190.900, 1, 10),
+('GA3009', 'tamaño CD-60S/DREADNOUGHT', 1127.900, 1, 10),
+
+('GA0707', 'clásico Fender CC-60S', 1290.900, 1, 10),
+('GA0107', '4/4 Valencia VC104TCBK', 352.900, 1, 10),
+('GA0223', '3/4 SX Viajera Con estuche', 922.900, 1, 10),
+('GC0775', 'clásico Cort Luce', 1101.900, 1, 10),
+('GA0042', 'acústica Fender CD-60S Acero', 906.900, 1, 10),
+('GA0817', '4/4 Valencia VC404', 436.900, 1, 10),
+('GA0336', '4/4 Alhambra HT 799V Con estuche', 2065.900, 1, 10),
+('GA0168', '4/4 Alhambra Flamenca 3F Con estuche', 29569.00, 1, 10),
+('GA1168', '4/4 Cort AF510 Con estuche', 545.900, 1, 10),
+('GA0316', '4/4 Fender Dreadnought CD-60S Clásico Con estuche', 1121.900, 1, 10),
+
+('GA0706', 'clásico Fender CC-60S estuche', 1290.900, 1, 10),
+('GA0688', 'clásico Cort Jade1 estuche', 734.900, 1, 10),
+('GA0023', 'clásico Fender CD-60 Dreadnought estuche', 1071.000, 1, 10),
+('GA0709', '3/4 CORT AC200', 712.900, 1, 10),
+('GA0710', 'clásico Alhambra 4P', 3416.900, 1, 10),
+('GA0815', 'clásico Valencia VC104L zurda', 146.400, 1, 10),
+('GA0353', '3/4 Valencia VC103 ESTUCHE Y AFINADOR', 416.900, 1, 10),
+('GA0805', '4/4 Valencia VC104 zurda', 337.900, 1, 10),
+('GA5063', 'clásico Alhambra 5P', 841.6900, 1, 10),
+('GA0806', '4/4 Valencia VC104', 337.900, 1, 10),
+
+('GA5069', 'clásico Alhambra 5P zurda', 4336.900, '1', 10),
+('GA0708', 'Concierto Cort AF590MF', 945.900, '1', 10),
+('GA3008', 'clásico Fender CC-60S Clásico Con estuche', 1069.900, '1', 10),
+('GA0043', 'Clásico Fender CD-60S Zurda Con estuche', 1121.900, '1', 10),
+('GA0044', 'Clásico Fender CP-60S Acero Con estuche', 1178.900, '1', 10),
+('GA5064', 'Clásico Alhambra Iberia Con estuche', 3355.900, '1', 10),
+('GA0823', '4/4 Valencia VC204TWR Con estuche', 311.900, '1', 10),
+('GA0436', 'Clásico Fender CD-60SCE Dreadnought Con estuche y electrónica', 1580.900, '1', 10),
+('GC0337', 'Clásico Cort SFX-DAO Con estuche', 990.900, '1', 10),
+('GC0344', 'Clásico Cort AD880CE Con estuche', 1001.900, '1', 10),
+
+('GC0345', 'Clásico Cort AD880SATIN Con estuche', 945.900, '1', 10),
+('GA0434', 'Clásico Fender CD-140SCE Con estuche duro', 1990.900, '1', 10),
+('GC0314', 'Clásico Cort MR500E Con estuche', 1223.900, '1', 10),
+('GA0435', 'Clásico Fender CD-140SCE Con estuche duro', 1990.900, '1', 10),
+('GC0360', 'Clásico Cort AC120CE Con estuche', 845.900, '1', 10),
+('GA0432', '4/4 Valencia VC104CE Con estuche', 524.900, '1', 10),
+('GA0431', '4/4 Valencia VC104E Con estuche', 500.900, '1', 10),
+('GA0315', 'Clásico Fender CD-60SCE Con estuche', 1597.900, '1', 10),
+('GA0430', '4/4 Valencia VC104E Con estuche', 500.900, '1', 10),
+('GC0332', 'Clásico Cort SFX-MEM Con estuche', 867.900, '1', 10),
+
+('GC0358', 'Clásico Cort AF510E Con estuche', 767.900, '1', 10),
+('GC0346', 'Clásico Cort AD880CE Con estuche', 1068.900, '1', 10),
+('GC0348', 'Clásico Cort CEC1 Con estuche', 890.900, '1', 10),
+('GA0314', 'Clásico Fender 60SCE Con estuche', 1597.900, '1', 10),
+('GC0774', 'Clásico Cort Acero Matt CJ Con estuche', 1223.900, '1', 10),
+('GA0698', 'Clásico Cort Acero Natural', 15689.00, '1', 10),
+('GC0322', 'Clásico Cort SFX-E', 1146.900, '1', 10),
+('GC0349', 'Clásico Cort AC160F', 1223.900, '1', 10),
+('GA0439', 'Clásico Fender Player Plateado', 2151.000, '1', 10),
+('GC0107', 'Clásico Cort GA-MEDX-12', 956.900, '1', 10);
+select * from Producto;
+
+describe Proveedor;
+insert into Proveedor values (1516, 'Fender','Alex Harbor','+1(800)8569801','contactemea@fender.com','USA',1);
+insert into Proveedor values (2637, 'Cort','Mark Hoshino','6013297777','info@cortguitars.com','Corea del Sur',1);
+insert into Proveedor values (8945, 'Valencia','Felipe Piñón','57-1-3475266','contactodyc@valencia.com','España',1);
+insert into Proveedor values (4829, 'Alhambra','Alejandro García','(+34)965530011','rgpd_alh@alhambraguitarras.com','España',1);
+select * from Proveedor;
+
+describe Usuario;
+insert into Usuario values ('','Isabella','Posada','desarrollador(a)','Ortizo2024','1000940266','Cll 167 #54-25','3242591532','isaposada1006@gmail.com','2003-06-10',1),
+('','Santiago','Gómez','desarrollador(a)','Ortizo2024','1025322998','Cll 127 #34-82','3193885828','santiagoe.gomez@gmail.com','2006-02-23',1),
+('','Lorena','Páez','desarrollador(a)','Ortizo2024','1001230447','cra 12c #27-39','3164031034','angie.paez@urosario.edu.co','2003-08-25',1),
+('','Santiago','Posada','Asesor(a)','Ortizo2024',1015425564,'cll 145 #57-21','3006069675','santipo01@gmail.com','1991-08-29',1),
+('','Rocio','Gil','Asesor(a)','Ortizo2024',51896662,'cll 167 #43-51','3002137018','arqyogil03@gmail.com','1968-04-18',1),
+('','Samuel','Vargas','Asesor(a)','Ortizo2024',1000236478,'cll 13a#34-26','3243678293','samvargas09@gmail.com','1992-12-09',1),
+('','Ariadna','Mejía','Asesor(a)','Ortizo2024',1023574628,'cll 127 #12a-23','3107889238','ari090991@gmail.com','1991-09-09',1),
+('','Ana María','González','Bodega','Ortizo2024',1002347785,'av.cra.19#152a-99','3158997235','anniegonzalez01@hotmail.com','1989-10-04',1),
+('','Esteban','Márquez','Bodega','Ortizo2024',1028339460,'cll 115#50-99','3102922245','estebanmarq0908@gmail.com','1984-08-09',1),
+('','Maria Alejandra','Martinez','Asesor(a)','Ortizo2024',1197263578,'cra. 15 #93-75','3001599726','malejamartinez1@hotmail.com','1999-07-02',1);
+
+insert into Usuario values ('','Javier','Orjuela','Administrador(a)','Ortizo2024',101026499,'cll 142c#11-57a','3205898850','javiorjuela05@hotmail.com','1980-12-09',1),
+('','Camilo','Vesga','Administrador(a)','Ortizo2024',619923894,'cll 65 #52-20','3214887263','vesgacamilo02@gmail.com','1979-10-23',1),
+('','Andrés','Quintero','Bodega','Ortizo2024',1002934995,'cl 72 #21-28','3142295830','andres.quintero19@gmail.com','1991-03-06',1),
+('','Alejandro','Gutierrez','Bodega','Ortizo2024',1045882630,'cra. 44 #20c-7','3103438852','alejogutierrezzz@gmail.com','1986-04-19',1),
+('','Victor','Montaño','Bodega','Ortizo2024',1002338599,'cra 71a bis #63-56','3159882450','victormontañovergara05@hotmail.com','1980-03-15',1),
+('','Catalina','Espitia','Bodega','Ortizo2024',100234598,'cra 65-103-01','3158827969','cataaaaespi017@gmail.com','2001-06-28',1),
+('','Maria Alejandra','Orozco','Asesor(a)','Ortizo2024',1000274563,'cll 151 #16-56','3103350958','maleorozcojimenez@gmail.com','1995-08-17',1),
+('','Karol','Jiménez','Bodega','Ortizo2024',1046569363,'cll 14 #52-20','3240944528','karojimenezvall@gmail.com','1996-04-21',1);
+select * from Usuario;
+
+insert into entradas values (" ", 1516, '2024-01-10'),
+(" ", 2637, '2024-02-12'),
+(" ", 8945, '2024-03-15'),
+(" ", 4829, '2024-04-10'),
+(" ", 1516, '2024-05-20'),
+(" ", 2637, '2024-06-05'),
+(" ", 8945, '2024-07-01'),
+(" ", 4829, '2024-08-10'),
+(" ", 1516, '2024-09-05'),
+(" ", 2637, '2024-10-30'),
+(" ", 8945, '2024-11-03'),
+(" ", 4829, '2024-12-01'),
+(" ", 1516, '2024-01-15'),
+(" ", 2637, '2024-02-01'),
+(" ", 8945, '2024-03-25'),
+(" ", 4829, '2024-04-14'),
+(" ", 1516, '2024-05-02'),
+(" ", 2637, '2024-06-11'),
+(" ", 8945, '2024-07-15'),
+(" ", 4829, '2024-08-25');
+
+select * from entradas;
+select * from producto;
+
+Insert into DetalleEntradas values
+('GA0019', 1, 50), 
+('GA0804', 2, 30), 
+('GA0370', 3, 100), 
+('GA0702', 4, 75), 
+('GA0807', 5, 20), 
+('GA0808', 6, 40), 
+('GA0686', 7, 60), 
+('GA0819', 8, 25), 
+('GA0810', 9, 80), 
+('GA0684', 10, 90), 
+('GA0820', 11, 45), 
+('GC0355', 12, 55), 
+('GA0812', 13, 15), 
+('GA0811', 14, 35), 
+('GA0690', 15, 60), 
+('GA0821', 16, 25), 
+('GA0695', 17, 85), 
+('GA0020', 18, 65), 
+('GA0022', 19, 50), 
+('GA3009', 20, 40);
+
+
+
+insert into salidas values 
+(" ", 1, '2024-01-10'),
+(" ", 2, '2024-02-12'),
+(" ", 3, '2024-03-15'),
+(" ", 4, '2024-04-10'),
+(" ", 5, '2024-05-20'),
+(" ", 6, '2024-06-05'),
+(" ", 7, '2024-07-01'),
+(" ", 8, '2024-08-10'),
+(" ", 9, '2024-09-05'),
+(" ", 10, '2024-10-30'),
+(" ", 11, '2024-11-03'),
+(" ", 12, '2024-12-01'),
+(" ", 13, '2024-01-15'),
+(" ", 14, '2024-02-01'),
+(" ", 15, '2024-03-25'),
+(" ", 16, '2024-04-14'),
+(" ", 17, '2024-05-02'),
+(" ", 18, '2024-06-11'),
+(" ", 18, '2024-07-15'),
+(" ", 18, '2024-08-25');
+describe salidas;
+select * from entradas;
+
+select * from salidas;
+
+insert into detallesalidas values ('GA0019', 1, 10), 
+('GA0804', 2, 15), 
+('GA0370', 3, 20), 
+('GA0702', 4, 30), 
+('GA0807', 5, 5), 
+('GA0808', 6, 8), 
+('GA0686', 7, 12), 
+('GA0819', 8, 7), 
+('GA0810', 9, 25), 
+('GA0684', 10, 18), 
+('GA0820', 11, 12), 
+('GC0355', 12, 16), 
+('GA0812', 13, 10), 
+('GA0811', 14, 20), 
+('GA0690', 15, 22), 
+('GA0821', 16, 8), 
+('GA0695', 17, 30), 
+('GA0020', 18, 27),
+('GA0022', 19, 18), 
+('GA3009', 20, 15);
+
+select * from usuario;
+
+
+
+
+

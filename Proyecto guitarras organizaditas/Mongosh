@@ -1,0 +1,91 @@
+use GuitarrasOrtizo1;
+switched to db GuitarrasOrtizo1
+db.createCollection("Producto")
+db.createCollection("Proveedor")
+db.createCollection("Usuario")
+db.createCollection("Entradas")
+db.createCollection("Salidas")
+db.createCollection("DetalleEntradas")
+db.createCollection("DetalleSalidas")
+{ ok: 1 }
+
+db.Producto.insertMany([
+  {idProducto: "GA0019", referenciaProducto: "clásico SQUIER SA-150N", precioProducto: 604.900, estadoProducto: true, cantidadProducto: 10},
+  {idProducto: "GA0804", referenciaProducto: "4/4 VC104/Natural", precioProducto: 337.900, estadoProducto: true, cantidadProducto: 10},
+  {idProducto: "GA0370", referenciaProducto: "clásico Classic AC100 estuche", precioProducto: 556.900, estadoProducto: true, cantidadProducto: 10},
+  {idProducto: "GA0702", referenciaProducto: "clásico SA-150/DREADNOUGHT", precioProducto: 580.000, estadoProducto: true, cantidadProducto: 10},
+  {idProducto: "GA0807", referenciaProducto: "4/4 VC104K-NEGRA estuche y afinador", precioProducto: 422.900, estadoProducto: true, cantidadProducto: 10},
+  {idProducto: "GA0808", referenciaProducto: "3/4 VC103K/NATURAL estuche y afinador", precioProducto: 416.900, estadoProducto: true, cantidadProducto: 10},
+  {idProducto: "GA0686", referenciaProducto: "clásico AF510M/Poro Abierto estuche", precioProducto: 556.900, estadoProducto: true, cantidadProducto: 10},
+  {idProducto: "GA0819", referenciaProducto: "clásico VC564", precioProducto: 489.900, estadoProducto: true, cantidadProducto: 10},
+  {idProducto: "GA0810", referenciaProducto: "1/2 NATURAL VC102 estuche y afinador", precioProducto: 384.900, estadoProducto: true, cantidadProducto: 10},
+  {idProducto: "GA0684", referenciaProducto: "3/4 AD MINI/Poro abierto estuche", precioProducto: 576.900, estadoProducto: true, cantidadProducto: 10}
+])
+
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67360bcbadaae36969072e1f'),
+    '1': ObjectId('67360bcbadaae36969072e20'),
+    '2': ObjectId('67360bcbadaae36969072e21'),
+    '3': ObjectId('67360bcbadaae36969072e22'),
+    '4': ObjectId('67360bcbadaae36969072e23'),
+    '5': ObjectId('67360bcbadaae36969072e24'),
+    '6': ObjectId('67360bcbadaae36969072e25'),
+    '7': ObjectId('67360bcbadaae36969072e26'),
+    '8': ObjectId('67360bcbadaae36969072e27'),
+    '9': ObjectId('67360bcbadaae36969072e28')
+  }
+}
+
+db.Usuario.insertMany([
+  {idUsuario: 1, nombreUsuario: "Isabella", apellidoUsuario: "Posada", cargoUsuario: "desarrollador(a)", contrasenaUsuario: "Ortizo2024", cedulaUsuario: 1000940266, direccionUsuario: "cll 168 #65-37", telefonoUsuario: 3242591532, correoUsuario: "isaposada1006@gmail.com", fechaNacimientoUsuario: 2003-06-10, estadoUsuario: true},
+  {idUsuario: 2, nombreUsuario: "Santiago", apellidoUsuario: "Gómez", cargoUsuario: "desarrollador(a)", contrasenaUsuario: "Ortizo2024", cedulaUsuario: 1025322998, direccionUsuario: "Cll 127 #34-82", telefonoUsuario: 3193885828, correoUsuario: "santiagoe.gomez@gmail.com", fechaNacimientoUsuario: 2006-02-23, estadoUsuario: true},
+  {idUsuario: 3, nombreUsuario: "Lorena", apellidoUsuario: "Páez", cargoUsuario: "desarrollador(a)", contrasenaUsuario: "Ortizo2024", cedulaUsuario: 1001230447, direccionUsuario: "cra 12c #27-39", telefonoUsuario: 3164031034, correoUsuario: "angie.paez@urosario.edu.co", fechaNacimientoUsuario: 2003-08-25, estadoUsuario: true},
+  {idUsuario: 4, nombreUsuario: "Santiago", apellidoUsuario: "Posada", cargoUsuario: "Asesor(a)", contrasenaUsuario: "Ortizo2024", cedulaUsuario: 1015425564, direccionUsuario: "cll 145 #57-21", telefonoUsuario: 3006069675, correoUsuario: "santipo01@gmail.com", fechaNacimientoUsuario: 1991-08-29, estadoUsuario: true},
+  {idUsuario: 5, nombreUsuario: "Samuel", apellidoUsuario: "Vargas", cargoUsuario: "Asesor(a)", contrasenaUsuario: "Ortizo2024", cedulaUsuario: 1000236478, direccionUsuario: "cll 13a#34-26", telefonoUsuario: 3243678293, correoUsuario: "samvargas09@gmail.com", fechaNacimientoUsuario: 1992-12-09, estadoUsuario: true},
+  {idUsuario: 6, nombreUsuario: "Ariadna", apellidoUsuario: "Mejía", cargoUsuario: "Asesor(a)", contrasenaUsuario: "Ortizo2024", cedulaUsuario: 1023574628, direccionUsuario: "cll 127 #12a-23", telefonoUsuario: 3107889238, correoUsuario: "ari090991@gmail.com", fechaNacimientoUsuario: 1991-09-09, estadoUsuario: true},
+  {idUsuario: 7, nombreUsuario: "Ana María", apellidoUsuario: "González", cargoUsuario: "Bodega", contrasenaUsuario: "Ortizo2024", cedulaUsuario: 1002347785, direccionUsuario: "av.cra.19#152a-99", telefonoUsuario: 3158997235, correoUsuario: "anniegonzalez01@hotmail.com", fechaNacimientoUsuario: 1989-10-04, estadoUsuario: true},
+  {idUsuario: 8, nombreUsuario: "Esteban", apellidoUsuario: "Márquez", cargoUsuario: "Bodega", contrasenaUsuario: "Ortizo2024", cedulaUsuario: 1028339460, direccionUsuario: "cll 115#50-99", telefonoUsuario: 3102922245, correoUsuario: "estebanmarq0908@gmail.com", fechaNacimientoUsuario: 1984-08-09, estadoUsuario: true},
+  {idUsuario: 9, nombreUsuario: "Javier", apellidoUsuario: "Orjuela", cargoUsuario: "Administrador(a)", contrasenaUsuario: "Ortizo2024", cedulaUsuario: 101026499, direccionUsuario: "cll 142c#11-57a", telefonoUsuario: 3205898850, correoUsuario: "javiorjuela05@hotmail.com", fechaNacimientoUsuario: 1980-12-09, estadoUsuario: true},
+  {idUsuario: 10, nombreUsuario: "Alejandro", apellidoUsuario: "Gutierrez", cargoUsuario: "Bodega", contrasenaUsuario: "Ortizo2024", cedulaUsuario: 1045882630, direccionUsuario: "cra. 44 #20c-7", telefonoUsuario: 3103438852, correoUsuario: "alejogutierrezzz@gmail.com", fechaNacimientoUsuario: 1986-04-19, estadoUsuario: true}
+])
+
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6736115aadaae36969072e29'),
+    '1': ObjectId('6736115aadaae36969072e2a'),
+    '2': ObjectId('6736115aadaae36969072e2b'),
+    '3': ObjectId('6736115aadaae36969072e2c'),
+    '4': ObjectId('6736115aadaae36969072e2d'),
+    '5': ObjectId('6736115aadaae36969072e2e'),
+    '6': ObjectId('6736115aadaae36969072e2f'),
+    '7': ObjectId('6736115aadaae36969072e30'),
+    '8': ObjectId('6736115aadaae36969072e31'),
+    '9': ObjectId('6736115aadaae36969072e32')
+  }
+}
+
+db.Proveedor.insertMany([
+  {idProveedor: 1516, nombreProveedor: "Fender", contactoPrincipalProveedor: "Alex Harbor", telefonoProveedor: "+1(800)8569801", correoProveedor: "contactemea@fender.com", paisOrigenProveedor: "USA", estadoProveedor: true},
+  {idProveedor: 2637, nombreProveedor: "Cort", contactoPrincipalProveedor: "Mark Hoshino", telefonoProveedor: "6013297777", correoProveedor: "info@cortguitars.com", paisOrigenProveedor: "Corea del Sur", estadoProveedor: true},
+  {idProveedor: 4829, nombreProveedor: "Alhambra", contactoPrincipalProveedor: "Alejandro García", telefonoProveedor: "(+34)965530011", correoProveedor: "rgpd_alh@alhambraguitarras.com", paisOrigenProveedor: "España", estadoProveedor: true},
+  {idProveedor: 8945, nombreProveedor: "Valencia", contactoPrincipalProveedor: "Felipe Piñón", telefonoProveedor: "57-1-3475266", correoProveedor: "contactodyc@valencia.com", paisOrigenProveedor: "España", estadoProveedor: true}
+])
+
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67361301adaae36969072e33'),
+    '1': ObjectId('67361301adaae36969072e34'),
+    '2': ObjectId('67361301adaae36969072e35'),
+    '3': ObjectId('67361301adaae36969072e36')
+  }
+}
+
+
+
+
+
+

@@ -5,8 +5,6 @@ db.createCollection("Proveedor")
 db.createCollection("Usuario")
 db.createCollection("Entradas")
 db.createCollection("Salidas")
-db.createCollection("DetalleEntradas")
-db.createCollection("DetalleSalidas")
 { ok: 1 }
 
 db.Producto.insertMany([

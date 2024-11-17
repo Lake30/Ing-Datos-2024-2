@@ -82,8 +82,249 @@ db.Proveedor.insertMany([
   }
 }
 
+db.Entradas.insertMany([
+  {idEntrada: 1, idProveedorFK: 1516, fechaEntrada: 2024-01-10, idProductoFK: "GA0019", cantidadEntrada: 20},
+  {idEntrada: 2, idProveedorFK: 1516, fechaEntrada: 2024-03-15, idProductoFK: "GA0804", cantidadEntrada: 25},
+  {idEntrada: 3, idProveedorFK: 1516, fechaEntrada: 2024-06-05, idProductoFK: "GA0370", cantidadEntrada: 34},
+  {idEntrada: 4, idProveedorFK: 8945, fechaEntrada: 2024-04-10, idProductoFK: "GA0702", cantidadEntrada: 12},
+  {idEntrada: 5, idProveedorFK: 1516, fechaEntrada: 2024-09-05, idProductoFK: "GA0807", cantidadEntrada: 45},
+  {idEntrada: 6, idProveedorFK: 1516, fechaEntrada: 2024-10-30, idProductoFK: "GA0808", cantidadEntrada: 23},
+  {idEntrada: 7, idProveedorFK: 8945, fechaEntrada: 2024-01-15, idProductoFK: "GA0686", cantidadEntrada: 34},
+  {idEntrada: 8, idProveedorFK: 1516, fechaEntrada: 2024-10-01, idProductoFK: "GA0819", cantidadEntrada: 56},
+  {idEntrada: 9, idProveedorFK: 8945, fechaEntrada: 2024-04-14, idProductoFK: "GA0810", cantidadEntrada: 32},
+  {idEntrada: 10, idProveedorFK: 8945, fechaEntrada: 2024-07-15, idProductoFK: "GA0684", cantidadEntrada: 54}
+])
 
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('673a34c329f0551fa3557c56'),
+    '1': ObjectId('673a34c329f0551fa3557c57'),
+    '2': ObjectId('673a34c329f0551fa3557c58'),
+    '3': ObjectId('673a34c329f0551fa3557c59'),
+    '4': ObjectId('673a34c329f0551fa3557c5a'),
+    '5': ObjectId('673a34c329f0551fa3557c5b'),
+    '6': ObjectId('673a34c329f0551fa3557c5c'),
+    '7': ObjectId('673a34c329f0551fa3557c5d'),
+    '8': ObjectId('673a34c329f0551fa3557c5e'),
+    '9': ObjectId('673a34c329f0551fa3557c5f')
+  }
+}
 
+db.Salidas.insertMany([
+  {idSalida: 1, idUsuarioFK: 1, fechaSalida: 2024-01-15, idProductoFK: "GA0019", cantidadSalida: 34},
+  {idSalida: 2, idUsuarioFK: 2, fechaSalida: 2024-04-21, idProductoFK: "GA0019", cantidadSalida: 12},
+  {idSalida: 3, idUsuarioFK: 3, fechaSalida: 2024-08-23, idProductoFK: "GA0019", cantidadSalida: 45},
+  {idSalida: 4, idUsuarioFK: 4, fechaSalida: 2024-09-12, idProductoFK: "GA0019", cantidadSalida: 23},
+  {idSalida: 5, idUsuarioFK: 5, fechaSalida: 2024-02-21, idProductoFK: "GA0019", cantidadSalida: 43},
+  {idSalida: 6, idUsuarioFK: 6, fechaSalida: 2024-10-15, idProductoFK: "GA0019", cantidadSalida: 23},
+  {idSalida: 7, idUsuarioFK: 7, fechaSalida: 2024-11-01, idProductoFK: "GA0019", cantidadSalida: 34},
+  {idSalida: 8, idUsuarioFK: 8, fechaSalida: 2024-03-05, idProductoFK: "GA0019", cantidadSalida: 42},
+  {idSalida: 9, idUsuarioFK: 9, fechaSalida: 2024-07-10, idProductoFK: "GA0019", cantidadSalida: 12},
+  {idSalida: 10, idUsuarioFK: 10, fechaSalida: 2024-06-14, idProductoFK: "GA0019", cantidadSalida: 42}
+])
 
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('673a35de29f0551fa3557c60'),
+    '1': ObjectId('673a35de29f0551fa3557c61'),
+    '2': ObjectId('673a35de29f0551fa3557c62'),
+    '3': ObjectId('673a35de29f0551fa3557c63'),
+    '4': ObjectId('673a35de29f0551fa3557c64'),
+    '5': ObjectId('673a35de29f0551fa3557c65'),
+    '6': ObjectId('673a35de29f0551fa3557c66'),
+    '7': ObjectId('673a35de29f0551fa3557c67'),
+    '8': ObjectId('673a35de29f0551fa3557c68'),
+    '9': ObjectId('673a35de29f0551fa3557c69')
+  }
+}
 
+db.Proveedor.find()
 
+{
+  _id: ObjectId('67361301adaae36969072e33'),
+  idProveedor: 1516,
+  nombreProveedor: 'Fender',
+  contactoPrincipalProveedor: 'Alex Harbor',
+  telefonoProveedor: '+1(800)8569801',
+  correoProveedor: 'contactemea@fender.com',
+  paisOrigenProveedor: 'USA',
+  estadoProveedor: true
+}
+{
+  _id: ObjectId('67361301adaae36969072e34'),
+  idProveedor: 2637,
+  nombreProveedor: 'Cort',
+  contactoPrincipalProveedor: 'Mark Hoshino',
+  telefonoProveedor: '6013297777',
+  correoProveedor: 'info@cortguitars.com',
+  paisOrigenProveedor: 'Corea del Sur',
+  estadoProveedor: true
+}
+{
+  _id: ObjectId('67361301adaae36969072e35'),
+  idProveedor: 4829,
+  nombreProveedor: 'Alhambra',
+  contactoPrincipalProveedor: 'Alejandro García',
+  telefonoProveedor: '(+34)965530011',
+  correoProveedor: 'rgpd_alh@alhambraguitarras.com',
+  paisOrigenProveedor: 'España',
+  estadoProveedor: true
+}
+{
+  _id: ObjectId('67361301adaae36969072e36'),
+  idProveedor: 8945,
+  nombreProveedor: 'Valencia',
+  contactoPrincipalProveedor: 'Felipe Piñón',
+  telefonoProveedor: '57-1-3475266',
+  correoProveedor: 'contactodyc@valencia.com',
+  paisOrigenProveedor: 'España',
+  estadoProveedor: true
+}
+
+db.Proveedor.updateOne(
+    { idProveedor: 8945 },
+    { $set: { contactoPrincipalProveedor: "Andrés Martínez" } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.Proveedor.updateOne(
+    { idProveedor: 4829 },
+    { $set: { telefonoProveedor: "+3456633423" } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.Proveedor.deleteOne({idProveedor: 2637})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+
+db.Proveedor.find({ paisOrigenProveedor: "USA" })
+{
+  _id: ObjectId('67361301adaae36969072e33'),
+  idProveedor: 1516,
+  nombreProveedor: 'Fender',
+  contactoPrincipalProveedor: 'Alex Harbor',
+  telefonoProveedor: '+1(800)8569801',
+  correoProveedor: 'contactemea@fender.com',
+  paisOrigenProveedor: 'USA',
+  estadoProveedor: true
+}
+
+db.Proveedores.updateOne(
+    { idProveedor: 1516 },
+    { $set: { estadoProveedor: false } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+
+db.Proveedores.updateOne(
+    { idProveedor: 1516 },
+    { $set: { correoProveedor: "exporfender@fender.com" } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+
+db.Proveedores.updateOne(
+    { idProveedor: 1516 },
+    { $set: { nombreProveedor: "Fender Guitars" } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+
+db.Proveedor.findOne(
+    { idProveedor: 1516 },
+    { telefonoProveedor: 1, _id: 0 }
+)
+{
+  telefonoProveedor: '+1(800)8569801'
+}
+
+db.Proveedor.findOne(
+    { idProveedor: 1516 },
+    { correoProveedor: 1, _id: 0 }
+)
+{
+  correoProveedor: 'contactemea@fender.com'
+}
+db.Proveedor.findOne(
+    { idProveedor: 1516 },
+    { contactoPrincipalProveedor: 1, _id: 0 }
+)
+{
+  contactoPrincipalProveedor: 'Alex Harbor'
+}
+db.Proveedor.findOne(
+    { nombreProveedor: "Alhambra" },
+    { idProveedor: 1, _id: 0 })
+{
+  idProveedor: 4829
+}
+
+db.Proveedor.findOne(
+    { nombreProveedor: "Alhambra" },
+    { contactoPrincipalProveedor: 1, _id: 0 })
+{
+  contactoPrincipalProveedor: 'Alejandro García'
+}
+
+db.Proveedor.find({estadoProveedor: true})
+{
+  _id: ObjectId('67361301adaae36969072e33'),
+  idProveedor: 1516,
+  nombreProveedor: 'Fender',
+  contactoPrincipalProveedor: 'Alex Harbor',
+  telefonoProveedor: '+1(800)8569801',
+  correoProveedor: 'contactemea@fender.com',
+  paisOrigenProveedor: 'USA',
+  estadoProveedor: true
+}
+{
+  _id: ObjectId('67361301adaae36969072e35'),
+  idProveedor: 4829,
+  nombreProveedor: 'Alhambra',
+  contactoPrincipalProveedor: 'Alejandro García',
+  telefonoProveedor: '+3456633423',
+  correoProveedor: 'rgpd_alh@alhambraguitarras.com',
+  paisOrigenProveedor: 'España',
+  estadoProveedor: true
+}
+{
+  _id: ObjectId('67361301adaae36969072e36'),
+  idProveedor: 8945,
+  nombreProveedor: 'Valencia',
+  contactoPrincipalProveedor: 'Andrés Martínez',
+  telefonoProveedor: '57-1-3475266',
+  correoProveedor: 'contactodyc@valencia.com',
+  paisOrigenProveedor: 'España',
+  estadoProveedor: true
+}

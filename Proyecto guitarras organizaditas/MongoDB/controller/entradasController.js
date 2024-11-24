@@ -10,3 +10,15 @@ export const insertarEntrada = async (peticion, respuesta) => {
         console.log(error);
     }
 }
+
+export const consultarFechaEntradaporID = async (peticion, respuesta) => {
+    console.log("Ruta consultada");
+    const { _id } = peticion.body; 
+    try {
+        const FechaEntrada = await entradasModel.find({ _id }).select('fechaEntrada -_id');  
+        respuesta.status(200).json({ FechaEntrada });
+    } catch (error) {
+        console.error(error);
+        respuesta.status(500).json({ message: 'Error al consultar los Fecha Entrada por id' });
+    }
+};

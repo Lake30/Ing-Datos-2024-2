@@ -10,3 +10,15 @@ export const insertarSalida = async (peticion, respuesta) => {
         console.log(error);
     }
 }
+
+export const consultarFechaSalidaporID = async (peticion, respuesta) => {
+    console.log("Ruta consultada");
+    const { _id } = peticion.body; 
+    try {
+        const FechaSalida = await salidasModel.find({ _id }).select('fechaSalida -_id');  
+        respuesta.status(200).json({ FechaSalida });
+    } catch (error) {
+        console.error(error);
+        respuesta.status(500).json({ message: 'Error al consultar los FechaSalida por id' });
+    }
+};

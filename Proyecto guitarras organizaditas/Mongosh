@@ -328,3 +328,509 @@ db.Proveedor.find({estadoProveedor: true})
   paisOrigenProveedor: 'España',
   estadoProveedor: true
 }
+
+db.Producto.find()
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fb4'),
+  idProducto: 'GA0019',
+  referenciaProducto: 'clásico SQUIER SA-150N',
+  precioProducto: 604.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fb5'),
+  idProducto: 'GA0804',
+  referenciaProducto: '4/4 VC104/Natural',
+  precioProducto: 337.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fb6'),
+  idProducto: 'GA0370',
+  referenciaProducto: 'clásico Classic AC100 estuche',
+  precioProducto: 556.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fb7'),
+  idProducto: 'GA0702',
+  referenciaProducto: 'clásico SA-150/DREADNOUGHT',
+  precioProducto: 580,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fb8'),
+  idProducto: 'GA0807',
+  referenciaProducto: '4/4 VC104K-NEGRA estuche y afinador',
+  precioProducto: 422.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fb9'),
+  idProducto: 'GA0808',
+  referenciaProducto: '3/4 VC103K/NATURAL estuche y afinador',
+  precioProducto: 416.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fba'),
+  idProducto: 'GA0686',
+  referenciaProducto: 'clásico AF510M/Poro Abierto estuche',
+  precioProducto: 556.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fbb'),
+  idProducto: 'GA0819',
+  referenciaProducto: 'clásico VC564',
+  precioProducto: 489.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fbc'),
+  idProducto: 'GA0810',
+  referenciaProducto: '1/2 NATURAL VC102 estuche y afinador',
+  precioProducto: 384.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fbd'),
+  idProducto: 'GA0684',
+  referenciaProducto: '3/4 AD MINI/Poro abierto estuche',
+  precioProducto: 576.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+
+db.Producto.deleteOne({idProducto: "GA0804"})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+
+db.Producto.updateOne(
+    { idProducto: "GA0807" },
+    { $set: { referenciaProducto: "4/4 VC104K-NEGRA estuche" } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.Producto.updateOne(
+    { idProducto: "GA0807" },
+    { $set: { precioProducto: "358.950" } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.Producto.find().sort({ precioProducto: 1 })
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fbc'),
+  idProducto: 'GA0810',
+  referenciaProducto: '1/2 NATURAL VC102 estuche y afinador',
+  precioProducto: 384.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fb9'),
+  idProducto: 'GA0808',
+  referenciaProducto: '3/4 VC103K/NATURAL estuche y afinador',
+  precioProducto: 416.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fbb'),
+  idProducto: 'GA0819',
+  referenciaProducto: 'clásico VC564',
+  precioProducto: 489.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fb6'),
+  idProducto: 'GA0370',
+  referenciaProducto: 'clásico Classic AC100 estuche',
+  precioProducto: 556.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fba'),
+  idProducto: 'GA0686',
+  referenciaProducto: 'clásico AF510M/Poro Abierto estuche',
+  precioProducto: 556.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fbd'),
+  idProducto: 'GA0684',
+  referenciaProducto: '3/4 AD MINI/Poro abierto estuche',
+  precioProducto: 576.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fb7'),
+  idProducto: 'GA0702',
+  referenciaProducto: 'clásico SA-150/DREADNOUGHT',
+  precioProducto: 580,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fb4'),
+  idProducto: 'GA0019',
+  referenciaProducto: 'clásico SQUIER SA-150N',
+  precioProducto: 604.9,
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fb8'),
+  idProducto: 'GA0807',
+  referenciaProducto: '4/4 VC104K-NEGRA estuche',
+  precioProducto: '358.950',
+  estadoProducto: true,
+  cantidadProducto: 10
+}
+
+db.Producto.updateOne(
+  { idProducto: "GA0019" },
+  { $set: { estadoProducto: false } } 
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.Producto.find({ estadoProducto: true })
+db.Producto.find(
+  { idProducto: "GA0686" },
+  { _id: 1, precioProducto: 1 } 
+)
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fba'),
+  precioProducto: 556.9
+}
+
+db.Producto.find(
+  { idProducto: "GA0684" },
+  { _id: 1, cantidadProducto: 1 }
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fbd'),
+  cantidadProducto: 10
+}
+
+db.Producto.find(
+  { referenciaProducto: "3/4 AD MINI/Poro abierto estuche" },
+  { _id: 1, idProducto: 1 } 
+)
+{
+  _id: ObjectId('6742c0fa68e5e725f6758fbd'),
+  idProducto: 'GA0684'
+}
+
+db.Usuario.find()
+{
+  _id: ObjectId('6742c10968e5e725f6758fbe'),
+  idUsuario: 1,
+  nombreUsuario: 'Isabella',
+  apellidoUsuario: 'Posada',
+  cargoUsuario: 'desarrollador(a)',
+  contrasenaUsuario: 'Ortizo2024',
+  cedulaUsuario: 1000940266,
+  direccionUsuario: 'cll 168 #65-37',
+  telefonoUsuario: 3242591532,
+  correoUsuario: 'isaposada1006@gmail.com',
+  fechaNacimientoUsuario: 1987,
+  estadoUsuario: true
+}
+{
+  _id: ObjectId('6742c10968e5e725f6758fbf'),
+  idUsuario: 2,
+  nombreUsuario: 'Santiago',
+  apellidoUsuario: 'Gómez',
+  cargoUsuario: 'desarrollador(a)',
+  contrasenaUsuario: 'Ortizo2024',
+  cedulaUsuario: 1025322998,
+  direccionUsuario: 'Cll 127 #34-82',
+  telefonoUsuario: 3193885828,
+  correoUsuario: 'santiagoe.gomez@gmail.com',
+  fechaNacimientoUsuario: 1981,
+  estadoUsuario: true
+}
+{
+  _id: ObjectId('6742c10968e5e725f6758fc0'),
+  idUsuario: 3,
+  nombreUsuario: 'Lorena',
+  apellidoUsuario: 'Páez',
+  cargoUsuario: 'desarrollador(a)',
+  contrasenaUsuario: 'Ortizo2024',
+  cedulaUsuario: 1001230447,
+  direccionUsuario: 'cra 12c #27-39',
+  telefonoUsuario: 3164031034,
+  correoUsuario: 'angie.paez@urosario.edu.co',
+  fechaNacimientoUsuario: 1970,
+  estadoUsuario: true
+}
+{
+  _id: ObjectId('6742c10968e5e725f6758fc1'),
+  idUsuario: 4,
+  nombreUsuario: 'Santiago',
+  apellidoUsuario: 'Posada',
+  cargoUsuario: 'Asesor(a)',
+  contrasenaUsuario: 'Ortizo2024',
+  cedulaUsuario: 1015425564,
+  direccionUsuario: 'cll 145 #57-21',
+  telefonoUsuario: 3006069675,
+  correoUsuario: 'santipo01@gmail.com',
+  fechaNacimientoUsuario: 1954,
+  estadoUsuario: true
+}
+{
+  _id: ObjectId('6742c10968e5e725f6758fc2'),
+  idUsuario: 5,
+  nombreUsuario: 'Samuel',
+  apellidoUsuario: 'Vargas',
+  cargoUsuario: 'Asesor(a)',
+  contrasenaUsuario: 'Ortizo2024',
+  cedulaUsuario: 1000236478,
+  direccionUsuario: 'cll 13a#34-26',
+  telefonoUsuario: 3243678293,
+  correoUsuario: 'samvargas09@gmail.com',
+  fechaNacimientoUsuario: 1971,
+  estadoUsuario: true
+}
+{
+  _id: ObjectId('6742c10968e5e725f6758fc3'),
+  idUsuario: 6,
+  nombreUsuario: 'Ariadna',
+  apellidoUsuario: 'Mejía',
+  cargoUsuario: 'Asesor(a)',
+  contrasenaUsuario: 'Ortizo2024',
+  cedulaUsuario: 1023574628,
+  direccionUsuario: 'cll 127 #12a-23',
+  telefonoUsuario: 3107889238,
+  correoUsuario: 'ari090991@gmail.com',
+  fechaNacimientoUsuario: 1973,
+  estadoUsuario: true
+}
+{
+  _id: ObjectId('6742c10968e5e725f6758fc4'),
+  idUsuario: 7,
+  nombreUsuario: 'Ana María',
+  apellidoUsuario: 'González',
+  cargoUsuario: 'Bodega',
+  contrasenaUsuario: 'Ortizo2024',
+  cedulaUsuario: 1002347785,
+  direccionUsuario: 'av.cra.19#152a-99',
+  telefonoUsuario: 3158997235,
+  correoUsuario: 'anniegonzalez01@hotmail.com',
+  fechaNacimientoUsuario: 1975,
+  estadoUsuario: true
+}
+{
+  _id: ObjectId('6742c10968e5e725f6758fc5'),
+  idUsuario: 8,
+  nombreUsuario: 'Esteban',
+  apellidoUsuario: 'Márquez',
+  cargoUsuario: 'Bodega',
+  contrasenaUsuario: 'Ortizo2024',
+  cedulaUsuario: 1028339460,
+  direccionUsuario: 'cll 115#50-99',
+  telefonoUsuario: 3102922245,
+  correoUsuario: 'estebanmarq0908@gmail.com',
+  fechaNacimientoUsuario: 1967,
+  estadoUsuario: true
+}
+{
+  _id: ObjectId('6742c10968e5e725f6758fc6'),
+  idUsuario: 9,
+  nombreUsuario: 'Javier',
+  apellidoUsuario: 'Orjuela',
+  cargoUsuario: 'Administrador(a)',
+  contrasenaUsuario: 'Ortizo2024',
+  cedulaUsuario: 101026499,
+  direccionUsuario: 'cll 142c#11-57a',
+  telefonoUsuario: 3205898850,
+  correoUsuario: 'javiorjuela05@hotmail.com',
+  fechaNacimientoUsuario: 1959,
+  estadoUsuario: true
+}
+{
+  _id: ObjectId('6742c10968e5e725f6758fc7'),
+  idUsuario: 10,
+  nombreUsuario: 'Alejandro',
+  apellidoUsuario: 'Gutierrez',
+  cargoUsuario: 'Bodega',
+  contrasenaUsuario: 'Ortizo2024',
+  cedulaUsuario: 1045882630,
+  direccionUsuario: 'cra. 44 #20c-7',
+  telefonoUsuario: 3103438852,
+  correoUsuario: 'alejogutierrezzz@gmail.com',
+  fechaNacimientoUsuario: 1963,
+  estadoUsuario: true
+}
+
+db.Usuario.deleteOne({ idUsuario: 2 })
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+
+db.Usuario.updateOne(
+  { idUsuario: 1 },
+  { $set: { cargoUsuario: "analista" } } // Línea donde se modifica el cargo
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.Usuario.updateOne(
+  { idUsuario: 3 },
+  { $set: { telefonoUsuario: 3101234567 } } 
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.Usuario.updateOne(
+  { idUsuario: 2 },
+  { $set: { correoUsuario: "nuevo.correo@gmail.com" } } 
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+
+db.Usuario.updateOne(
+  { idUsuario: 1 },
+  { $set: { estadoUsuario: false } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.Usuario.updateOne(
+  { idUsuario: 3 },
+  { $set: { contrasenaUsuario: "NuevaContrasena2024" } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+db.Usuario.find({ estadoUsuario: true })
+db.Usuario.find(
+  { cargoUsuario: "desarrollador(a)" },
+  { _id: 1, idUsuario: 1 } 
+)
+{
+  _id: ObjectId('6742c10968e5e725f6758fc0'),
+  idUsuario: 3
+}
+
+db.Usuario.find(
+  { cedulaUsuario: 1001230447 },
+  { _id: 1, idUsuario: 1 } 
+)
+{
+  _id: ObjectId('6742c10968e5e725f6758fc0'),
+  idUsuario: 3
+}
+
+db.Usuario.find(
+  { idUsuario: 1 },
+  { _id: 1, telefonoUsuario: 1 } 
+)
+{
+  _id: ObjectId('6742c10968e5e725f6758fbe'),
+  telefonoUsuario: 3242591532
+}
+
+db.Usuario.find(
+  { idUsuario: 3 },
+  { _id: 1, correoUsuario: 1 } 
+)
+{
+  _id: ObjectId('6742c10968e5e725f6758fc0'),
+  correoUsuario: 'angie.paez@urosario.edu.co'
+}
+
+db.Usuario.find(
+  { nombreUsuario: "Lorena" },
+  { _id: 1, idUsuario: 1 } 
+)
+{
+  _id: ObjectId('6742c10968e5e725f6758fc0'),
+  idUsuario: 3
+}
+
+db.Usuario.find(
+  { nombreUsuario: "Santiago" },
+  { _id: 1, fechaNacimientoUsuario: 1 } 
+)
+{
+  _id: ObjectId('6742c10968e5e725f6758fc1'),
+  fechaNacimientoUsuario: 1954
+}
+
+db.Entradas.find(
+  { idEntrada: 3 },
+  { _id: 1, fechaEntrada: 1 } 
+)
+{
+  _id: ObjectId('6742c12a68e5e725f6758fce'),
+  fechaEntrada: 2013
+}
+
+db.Salidas.find(
+  { idSalida: 4 },
+  { _id: 1, fechaSalida: 1 } 
+)
+{
+  _id: ObjectId('6742c13c68e5e725f6758fd9'),
+  fechaSalida: 2003
+}

@@ -11,6 +11,18 @@ export const insertarProducto = async (peticion, respuesta) => {
     }
 }
 
+export const eliminarProducto = async (peticion, respuesta) => {
+    try {
+        let referenciaProducto = peticion.body.referenciaProducto;
+        await productoModel.deleteOne({ referenciaProducto }); 
+        let productosRestantes = await productoModel.find(); 
+        respuesta.status(200).json({ productos: productosRestantes });
+    } catch (error) {
+        console.log(error);
+        respuesta.status(500).json({ mensaje: "Error al eliminar el producto" });
+    }
+}
+
 export const consultarProductosregistrados = async (peticion, respuesta) => {
     console.log("Ruta consultada");
     try {
@@ -21,7 +33,6 @@ export const consultarProductosregistrados = async (peticion, respuesta) => {
       respuesta.status(500).json({ message: 'Error al consultar productos ' });
     }
 }
-
 export const consultarGuitarrasZurdas = async (peticion, respuesta) => {
     console.log("Ruta consultada");
     try {
@@ -34,8 +45,7 @@ export const consultarGuitarrasZurdas = async (peticion, respuesta) => {
         console.error(error);
         respuesta.status(500).json({ message: 'Error al consultar' });
     }
-};
-
+}
 export const consultarProductosDisponibles = async (peticion, respuesta) => {
     console.log("Ruta consultada");
     try {
@@ -49,8 +59,7 @@ export const consultarProductosDisponibles = async (peticion, respuesta) => {
         console.error(error);
         respuesta.status(500).json({ message: 'Error al consultar productos disponibles' });
     }
-};
-
+}
 export const consultarPrecioporID = async (peticion, respuesta) => {
     console.log("Ruta consultada");
     const { _id } = peticion.body;  
@@ -61,8 +70,7 @@ export const consultarPrecioporID = async (peticion, respuesta) => {
         console.error(error);
         respuesta.status(500).json({ message: 'Error al consultar ' });
     }
-};
-
+}
 export const consultarCantidadporID = async (peticion, respuesta) => {
     console.log("Ruta consultada");
     const { _id } = peticion.body;  
@@ -73,8 +81,7 @@ export const consultarCantidadporID = async (peticion, respuesta) => {
         console.error(error);
         respuesta.status(500).json({ message: 'Error al consultar ' });
     }
-};
-
+}
 export const consultarIDporReferencia = async (peticion, respuesta) => {
     console.log("Ruta consultada");
     try {
@@ -89,8 +96,7 @@ export const consultarIDporReferencia = async (peticion, respuesta) => {
         console.error(error);
         respuesta.status(500).json({ message: 'Error al consultar' });
     }
-};
-
+}
 export const consultarProductosconAccesorio = async (peticion, respuesta) => {
     console.log("Ruta consultada");
     try {
@@ -106,4 +112,39 @@ export const consultarProductosconAccesorio = async (peticion, respuesta) => {
         console.error(error);
         respuesta.status(500).json({ message: 'Error al consultar' });
     }
-};
+}
+
+export const modificarReferenciaProducto = async (peticion, respuesta) => {
+    try {
+        let { _id, nuevaReferencia } = peticion.body;
+        await productoModel.findByIdAndUpdate(_id, { referenciaProducto: nuevaReferencia });
+        let productoActualizado = await productoModel.findById(_id); 
+        respuesta.status(200).json({ producto: productoActualizado });
+    } catch (error) {
+        console.log(error);
+        respuesta.status(500).json({ message: 'Error al modificar la referencia del producto' });
+    }
+}
+
+export const modificarPrecioProducto = async (peticion, respuesta) => {
+    try {
+        let { _id, nuevoPrecio } = peticion.body;
+        await productoModel.findByIdAndUpdate(_id, { precioProducto: nuevoPrecio });
+        let productoActualizado = await productoModel.findById(_id); 
+        respuesta.status(200).json({ producto: productoActualizado });
+    } catch (error) {
+        console.log(error);
+        respuesta.status(500).json({ message: 'Error al modificar el precio del producto' });
+    }
+}
+export const modificarEstadoProducto = async (peticion, respuesta) => {
+    try {
+        let { _id, nuevoEstado } = peticion.body;
+        await productoModel.findByIdAndUpdate(_id, { estadoProducto: nuevoEstado });
+        let productoActualizado = await productoModel.findById(_id); 
+        respuesta.status(200).json({ producto: productoActualizado });
+    } catch (error) {
+        console.log(error);
+        respuesta.status(500).json({ message: 'Error al modificar el estado del producto' });
+    }
+}

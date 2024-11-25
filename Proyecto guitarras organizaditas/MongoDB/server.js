@@ -17,20 +17,16 @@ connectDatabase()
         console.error("Error al conectar a la Base de Datos:", error)
         process.exit(1)
     });
-
 // Configuración del servidor
 const server = express()
 const PORT = process.env.PORT
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.static('public'));
-
 // Configuración Rutas
-
+server.use(usuarioRoute)
 server.use(productoRoute)
 server.use(proveedorRoute)
 server.use(entradasRoute)
 server.use(salidasRoute)
-server.use(usuarioRoute)
-
 server.listen(PORT, () => console.log(`Server running in port ${PORT}`))

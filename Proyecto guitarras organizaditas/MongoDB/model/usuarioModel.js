@@ -1,5 +1,4 @@
 import mongoose, {Schema} from "mongoose";
-
 const usuarioSchema = new Schema({
     nombreUsuario: String,
     apellidoUsuario: String,
